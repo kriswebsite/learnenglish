@@ -212,9 +212,12 @@ body {
 .letter-option,
 .number-options button,
 .svg-shape {
-    width: 100%;
-    max-width: 150px;
-    aspect-ratio: 1 / 1; /* Ensures square shape */
+    /* Removed .color-block from here */
+    /* width: 100%; */
+    /* max-width: 150px; */
+    /* aspect-ratio: 1 / 1; */
+    width: 100px; /* Ensured fixed width */
+    height: 100px; /* Ensured fixed height */
     margin: 5px;
     border: 2px solid #ddd;
     border-radius: 10px;
@@ -230,9 +233,9 @@ body {
 }
 
 .color-block {
-    color: #fff;
-    font-weight: bold;
-    text-transform: uppercase;
+    /* Already defined above */
+    background-color: #e74c3c; /* Example */
+    /* Remove any conflicting styles */
 }
 
 .letter-option {
@@ -303,6 +306,7 @@ body {
     .letter-option,
     .svg-shape {
         max-width: 100px;
+        height: 100px;
     }
 
     .number-options button {
@@ -334,6 +338,7 @@ body {
     .letter-option,
     .svg-shape {
         max-width: 80px;
+        height: 80px;
     }
 
     .number-options button {
@@ -347,4 +352,143 @@ body {
    Intro Page Specific Styles
    ===================================================== */
 
-   
+.intro-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.category-section {
+    text-align: center;
+}
+
+.category-name {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+/* Image-based Category Group */
+.image-category-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    border: 2px solid #2c3e50;
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.image-category-group:hover {
+    background-color: #ecf0f1;
+    transform: scale(1.02);
+}
+
+.image-category-group img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Non-Image-based Category Group */
+.non-image-category-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    border: 2px solid #2c3e50;
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.non-image-category-group:hover {
+    background-color: #ecf0f1;
+    transform: scale(1.02);
+}
+
+/* Styles for Colors */
+.color-block {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+}
+
+/* Styles for Alphabet */
+.letter-block {
+    width: 100px;
+    height: 100px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    border-radius: 5px;
+}
+
+/* Styles for Shapes */
+.shape-svg {
+    width: 100px;
+    height: 100px;
+}
+
+/* Styles for Numbers */
+.number-button {
+    width: 100px;
+    height: 100px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    font-size: 2em;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.number-button:hover {
+    background-color: #1abc9c;
+    transform: scale(1.05);
+}
+
+.number-button:active {
+    transform: scale(0.98);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .image-category-group img,
+    .color-block,
+    .letter-block,
+    .shape-svg,
+    .number-button {
+        width: 80px;
+        height: 80px;
+    }
+
+    .category-name {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 600px) {
+    .image-category-group img,
+    .color-block,
+    .letter-block,
+    .shape-svg,
+    .number-button {
+        width: 60px;
+        height: 60px;
+    }
+
+    .category-name {
+        font-size: 1.5em;
+    }
+}
