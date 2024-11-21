@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction - Learn and Play</title>
+    <link rel="stylesheet" href="introstyles.css">
+    <style>
+        /* =====================================================
+           Intro Page Specific Styles
+           ===================================================== */
+
+        .intro-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-section {
+            text-align: center;
+        }
+
+        .category-name {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        /* Image-based Category Group */
+        .image-category-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            border: 2px solid #2c3e50;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .image-category-group:hover {
+            background-color: #ecf0f1;
+            transform: scale(1.02);
+        }
+
+        .image-category-group img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        /* Non-Image-based Category Group */
+        .non-image-category-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            border: 2px solid #2c3e50;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .non-image-category-group:hover {
+            background-color: #ecf0f1;
+            transform: scale(1.02);
+        }
+
+        /* Styles for Colors */
+        .color-block {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+        }
+
+        /* Styles for Alphabet */
+        .letter-block {
+            width: 100px;
+            height: 100px;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            border-radius: 5px;
+        }
+
+        /* Styles for Shapes */
+        .shape-svg {
+            width: 100px;
+            height: 100px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .image-category-group img,
+            .color-block,
+            .letter-block,
+            .shape-svg {
+                width: 80px;
+                height: 80px;
+            }
+
+            .category-name {
+                font-size: 1.8em;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .image-category-group img,
+            .color-block,
+            .letter-block,
+            .shape-svg {
+                width: 60px;
+                height: 60px;
+            }
+
+            .category-name {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-brand">Learn and Play</div>
+        <div class="navbar-toggle" id="navbar-toggle">
+            &#9776; <!-- Hamburger Icon -->
+        </div>
+        <ul class="navbar-menu" id="navbar-menu">
+            <!-- Lessons Dropdown -->
+            <li class="navbar-item dropdown">
+                <button class="dropdown-toggle">Lessons &#9662;</button>
+                <ul class="dropdown-menu">
+                    <!-- Add all lesson buttons as in index.html -->
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#animals'">Animals</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#vegetables'">Vegetables</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#fruits'">Fruits</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#colors'">Colors</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#numbers'">Numbers</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#shapes'">Shapes</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#alphabet'">Alphabet</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#emotions'">Emotions</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#vehicles'">Vehicles</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#food1'">Food 1</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#food2'">Food 2</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#school_items1'">School Items 1</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#school_items2'">School Items 2</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#clothes1'">Clothes 1</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#clothes2'">Clothes 2</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#kitchen_items1'">Kitchen Items 1</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#kitchen_items2'">Kitchen Items 2</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#home_furniture1'">Home Furniture 1</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#home_furniture2'">Home Furniture 2</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#toys1'">Toys 1</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#toys2'">Toys 2</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#nature1'">Nature 1</button></li>
+                    <li><button class="lesson-button" onclick="window.location.href='index.html#nature2'">Nature 2</button></li>
+                </ul>
+            </li>
+            <!-- Games Dropdown -->
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="intro-container">
+            <!-- Category 1: Animals -->
+            <section class="category-section">
+                <h2 class="category-name">Animals</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#animals'">
+                    <img src="images/lion.webp" alt="Lion">
+                    <img src="images/elephant.webp" alt="Elephant">
+                    <img src="images/giraffe.webp" alt="Giraffe">
+                    <img src="images/zebra.webp" alt="Zebra">
+                </div>
+            </section>
+
+            <!-- Category 2: Vegetables -->
+            <section class="category-section">
+                <h2 class="category-name">Vegetables</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#vegetables'">
+                    <img src="images/carrot.webp" alt="Carrot">
+                    <img src="images/broccoli.webp" alt="Broccoli">
+                    <img src="images/potato.webp" alt="Potato">
+                    <img src="images/tomato.webp" alt="Tomato">
+                </div>
+            </section>
+
+            <!-- Category 3: Fruits -->
+            <section class="category-section">
+                <h2 class="category-name">Fruits</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#fruits'">
+                    <img src="images/apple.webp" alt="Apple">
+                    <img src="images/banana.webp" alt="Banana">
+                    <img src="images/pear.webp" alt="Pear">
+                    <img src="images/mango.webp" alt="Mango">
+                </div>
+            </section>
+
+            <!-- Category 4: Colors -->
+            <section class="category-section">
+                <h2 class="category-name">Colors</h2>
+                <div class="non-image-category-group" onclick="window.location.href='index.html#colors'">
+                    <div class="color-block" style="background-color: #e74c3c;" title="Red"></div>
+                    <div class="color-block" style="background-color: #3498db;" title="Blue"></div>
+                    <div class="color-block" style="background-color: #2ecc71;" title="Green"></div>
+                </div>
+            </section>
+
+            <!-- Category 5: Numbers -->
+            <section class="category-section">
+                <h2 class="category-name">Numbers</h2>
+                <div class="non-image-category-group" onclick="window.location.href='index.html#numbers'">
+                    <button class="number-button">1</button>
+                    <button class="number-button">2</button>
+                    <button class="number-button">3</button>
+                    <button class="number-button">4</button>
+                </div>
+            </section>
+
+            <!-- Category 6: Shapes -->
+            <section class="category-section">
+                <h2 class="category-name">Shapes</h2>
+                <div class="non-image-category-group" onclick="window.location.href='index.html#shapes'">
+                    <svg class="shape-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                        <polygon points="50,15 90,85 10,85" style="fill:#e74c3c; stroke:#333; stroke-width:2"/>
+                    </svg>
+                    <svg class="shape-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="35" style="fill:#3498db; stroke:#333; stroke-width:2"/>
+                    </svg>
+                    <svg class="shape-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                        <rect x="20" y="20" width="60" height="60" style="fill:#2ecc71; stroke:#333; stroke-width:2"/>
+                    </svg>
+                    <svg class="shape-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80">
+                        <rect x="10" y="10" width="100" height="60" style="fill:#f1c40f; stroke:#333; stroke-width:2"/>
+                    </svg>
+                </div>
+            </section>
+
+            <!-- Category 7: Alphabet -->
+            <section class="category-section">
+                <h2 class="category-name">Alphabet</h2>
+                <div class="non-image-category-group" onclick="window.location.href='index.html#alphabet'">
+                    <div class="letter-block">A</div>
+                    <div class="letter-block">B</div>
+                    <div class="letter-block">C</div>
+                    <div class="letter-block">D</div>
+                </div>
+            </section>
+
+            <!-- Category 8: Emotions -->
+            <section class="category-section">
+                <h2 class="category-name">Emotions</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#emotions'">
+                    <img src="images/happy.webp" alt="Happy">
+                    <img src="images/sad.webp" alt="Sad">
+                    <img src="images/surprised.webp" alt="Surprised">
+                    <img src="images/excited.webp" alt="Excited">
+                </div>
+            </section>
+
+            <!-- Category 9: Vehicles -->
+            <section class="category-section">
+                <h2 class="category-name">Vehicles</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#vehicles'">
+                    <img src="images/car.webp" alt="Car">
+                    <img src="images/train.webp" alt="Train">
+                    <img src="images/aeroplane.webp" alt="Aeroplane">
+                    <img src="images/bike.webp" alt="Bike">
+                </div>
+            </section>
+
+            <!-- Category 10: Food 1 -->
+            <section class="category-section">
+                <h2 class="category-name">Food 1</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#food1'">
+                    <img src="images/rice.webp" alt="Rice">
+                    <img src="images/chicken.webp" alt="Chicken">
+                    <img src="images/water.webp" alt="Water">
+                    <img src="images/cake.webp" alt="Cake">
+                </div>
+            </section>
+
+            <!-- Category 11: Food 2 -->
+            <section class="category-section">
+                <h2 class="category-name">Food 2</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#food2'">
+                    <img src="images/bread.webp" alt="Bread">
+                    <img src="images/milk.webp" alt="Milk">
+                    <img src="images/corn.webp" alt="Corn">
+                    <img src="images/bean.webp" alt="Bean">
+                </div>
+            </section>
+
+            <!-- Category 12: School Items 1 -->
+            <section class="category-section">
+                <h2 class="category-name">School Items 1</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#school_items1'">
+                    <img src="images/pen.webp" alt="Pen">
+                    <img src="images/school_bag.webp" alt="School Bag">
+                    <img src="images/desk.webp" alt="Desk">
+                    <img src="images/paper.webp" alt="Paper">
+                </div>
+            </section>
+
+            <!-- Category 13: School Items 2 -->
+            <section class="category-section">
+                <h2 class="category-name">School Items 2</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#school_items2'">
+                    <img src="images/eraser.webp" alt="Eraser">
+                    <img src="images/book.webp" alt="Book">
+                    <img src="images/pencil.webp" alt="Pencil">
+                    <img src="images/scissors.webp" alt="Scissors">
+                </div>
+            </section>
+
+            <!-- Category 14: Clothes 1 -->
+            <section class="category-section">
+                <h2 class="category-name">Clothes 1</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#clothes1'">
+                    <img src="images/shirt.webp" alt="Shirt">
+                    <img src="images/pants.webp" alt="Pants">
+                    <img src="images/shoes.webp" alt="Shoes">
+                    <img src="images/socks.webp" alt="Socks">
+                </div>
+            </section>
+
+            <!-- Category 15: Clothes 2 -->
+            <section class="category-section">
+                <h2 class="category-name">Clothes 2</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#clothes2'">
+                    <img src="images/dress.webp" alt="Dress">
+                    <img src="images/jacket.webp" alt="Jacket">
+                    <img src="images/sweater.webp" alt="Sweater">
+                    <img src="images/skirt.webp" alt="Skirt">
+                </div>
+            </section>
+
+            <!-- Category 16: Kitchen Items 1 -->
+            <section class="category-section">
+                <h2 class="category-name">Kitchen Items 1</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#kitchen_items1'">
+                    <img src="images/spoon.webp" alt="Spoon">
+                    <img src="images/fork.webp" alt="Fork">
+                    <img src="images/plate.webp" alt="Plate">
+                    <img src="images/cup.webp" alt="Cup">
+                </div>
+            </section>
+
+            <!-- Category 17: Kitchen Items 2 -->
+            <section class="category-section">
+                <h2 class="category-name">Kitchen Items 2</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#kitchen_items2'">
+                    <img src="images/knife.webp" alt="Knife">
+                    <img src="images/pot.webp" alt="Pot">
+                    <img src="images/pan.webp" alt="Pan">
+                    <img src="images/glass.webp" alt="Glass">
+                </div>
+            </section>
+
+            <!-- Category 18: Home Furniture 1 -->
+            <section class="category-section">
+                <h2 class="category-name">Home Furniture 1</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#home_furniture1'">
+                    <img src="images/bed.webp" alt="Bed">
+                    <img src="images/table.webp" alt="Table">
+                    <img src="images/sofa.webp" alt="Sofa">
+                    <img src="images/mirror.webp" alt="Mirror">
+                </div>
+            </section>
+
+            <!-- Category 19: Home Furniture 2 -->
+            <section class="category-section">
+                <h2 class="category-name">Home Furniture 2</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#home_furniture2'">
+                    <img src="images/clock.webp" alt="Clock">
+                    <img src="images/door.webp" alt="Door">
+                    <img src="images/wall.webp" alt="Wall">
+                    <img src="images/floor.webp" alt="Floor">
+                </div>
+            </section>
+
+            <!-- Category 20: Toys 1 -->
+            <section class="category-section">
+                <h2 class="category-name">Toys 1</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#toys1'">
+                    <img src="images/toy_ball.webp" alt="Toy Ball">
+                    <img src="images/toy_doll.webp" alt="Toy Doll">
+                    <img src="images/toy_truck.webp" alt="Toy Truck">
+                    <img src="images/toy_robot.webp" alt="Toy Robot">
+                </div>
+            </section>
+
+            <!-- Category 21: Toys 2 -->
+            <section class="category-section">
+                <h2 class="category-name">Toys 2</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#toys2'">
+                    <img src="images/toy_kite.webp" alt="Toy Kite">
+                    <img src="images/toy_train.webp" alt="Toy Train">
+                    <img src="images/block.webp" alt="Block">
+                    <img src="images/teddy.webp" alt="Teddy">
+                </div>
+            </section>
+
+            <!-- Category 22: Nature 1 -->
+            <section class="category-section">
+                <h2 class="category-name">Nature 1</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#nature1'">
+                    <img src="images/sky.webp" alt="Sky">
+                    <img src="images/cloud.webp" alt="Cloud">
+                    <img src="images/grass.webp" alt="Grass">
+                    <img src="images/star.webp" alt="Star">
+                </div>
+            </section>
+
+            <!-- Category 23: Nature 2 -->
+            <section class="category-section">
+                <h2 class="category-name">Nature 2</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#nature2'">
+                    <img src="images/snow.webp" alt="Snow">
+                    <img src="images/flower.webp" alt="Flower">
+                    <img src="images/tree.webp" alt="Tree">
+                    <img src="images/sun.webp" alt="Sun">
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- JavaScript for Navbar Toggle -->
+    <script>
+        /**
+         * Function to toggle the navbar menu on mobile.
+         */
+        function toggleNavbarMenu() {
+            const navbarMenu = document.getElementById('navbar-menu');
+            const navbarToggle = document.getElementById('navbar-toggle');
+            navbarMenu.classList.toggle('active');
+            navbarToggle.classList.toggle('active');
+        }
+
+        /**
+         * Event listener for navbar toggle (hamburger icon).
+         */
+        document.getElementById('navbar-toggle').addEventListener('click', toggleNavbarMenu);
+
+        /**
+         * Close the navbar menu when clicking outside of it (optional).
+         */
+        window.addEventListener('click', function(event) {
+            const navbarMenu = document.getElementById('navbar-menu');
+            const navbarToggle = document.getElementById('navbar-toggle');
+            if (!navbarMenu.contains(event.target) && !navbarToggle.contains(event.target)) {
+                if (navbarMenu.classList.contains('active')) {
+                    toggleNavbarMenu();
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

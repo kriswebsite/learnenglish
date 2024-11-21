@@ -2,1274 +2,793 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Learning Interactive</title>
+    <title>Learn and Play</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* =====================================================
+           General Styles (Assuming styles.css contains necessary styles)
+           ===================================================== */
+
+        /* Example styles for demonstration purposes */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #34495e;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .navbar-toggle {
+            display: none;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .navbar-menu {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-item {
+            position: relative;
+        }
+
+        .navbar-link, .dropdown-toggle, .lesson-button, .game-button {
+            color: white;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .navbar-link:hover, .dropdown-toggle:hover, .lesson-button:hover, .game-button:hover {
+            text-decoration: underline;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #2c3e50;
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+            top: 100%;
+            left: 0;
+            min-width: 150px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li {
+            padding: 5px 20px;
+        }
+
+        .dropdown-menu li button {
+            width: 100%;
+            text-align: left;
+            padding: 5px 0;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .lesson {
+            display: none;
+        }
+
+        .selected-name {
+            margin-bottom: 10px;
+        }
+
+        .images-container, .color-palette, .number-options, .letter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .option, .color-block, .letter-option {
+            cursor: pointer;
+        }
+
+        .color-block, .letter-option {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .game-container {
+            /* Styles for game container if needed */
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+                flex-direction: column;
+                background-color: #34495e;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                padding: 10px 0;
+            }
+
+            .navbar-menu.active {
+                display: flex;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Mobile Navigation -->
-    <div class="mobile-nav">
-        <button class="mobile-nav-button" onclick="toggleDropdown()">Lessons</button>
-        <div class="dropdown-menu" id="dropdown-menu">
-            <ul>
-                <!-- Animals Lesson -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="animals" onclick="selectLesson('animals')">
-                        Animals
-                        <img src="images/lion.webp" alt="Lion Icon" class="menu-icon">
-                        <img src="images/fish.webp" alt="Fish Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Vegetables Lesson -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="vegetables" onclick="selectLesson('vegetables')">
-                        Vegetables
-                        <img src="images/carrot.webp" alt="Carrot Icon" class="menu-icon">
-                        <img src="images/broccoli.webp" alt="Broccoli Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Fruits Lesson -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="fruits" onclick="selectLesson('fruits')">
-                        Fruits
-                        <img src="images/apple.webp" alt="Apple Icon" class="menu-icon">
-                        <img src="images/banana.webp" alt="Banana Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Colors Lesson -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="colors" onclick="selectLesson('colors')">
-                        Colors
-                        <span class="color-icon" style="background-color: red;"></span>
-                        <span class="color-icon" style="background-color: blue;"></span>
-                    </button>
-                </li>
-
-                <!-- Numbers Lesson -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="numbers" onclick="selectLesson('numbers')">
-                        Numbers
-                        <span class="number-icon">1</span>
-                        <span class="number-icon">2</span>
-                    </button>
-                </li>
-
-                <!-- Shapes Lesson -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="shapes" onclick="selectLesson('shapes')">
-                        Shapes
-                        <svg class="menu-icon" width="20" height="20" viewBox="0 0 100 100">
-                            <rect width="100" height="100" style="fill:#f1c40f;"></rect>
-                        </svg>
-                        <svg class="menu-icon" width="20" height="20" viewBox="0 0 100 100">
-                            <circle cx="50" cy="50" r="50" style="fill:#e74c3c;"></circle>
-                        </svg>
-                    </button>
-                </li>
-
-                <!-- Alphabet Lesson -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="alphabet" onclick="selectLesson('alphabet')">
-                        Alphabet
-                        <span class="letter-icon">A</span>
-                        <span class="letter-icon">B</span>
-                    </button>
-                </li>
-
-                <!-- Emotions Lesson -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="emotions" onclick="selectLesson('emotions')">
-                        Emotions
-                        <img src="images/happy.webp" alt="Happy Icon" class="menu-icon">
-                        <img src="images/sad.webp" alt="Sad Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Vehicles Lesson -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="vehicles" onclick="selectLesson('vehicles')">
-                        Vehicles
-                        <img src="images/car.webp" alt="Car Icon" class="menu-icon">
-                        <img src="images/train.webp" alt="Train Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Food Items 1 -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="food1" onclick="selectLesson('food1')">
-                        Food 1
-                        <img src="images/rice.webp" alt="Rice Icon" class="menu-icon">
-                        <img src="images/chicken.webp" alt="Chicken Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Food Items 2 -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="food2" onclick="selectLesson('food2')">
-                        Food 2
-                        <img src="images/bread.webp" alt="Bread Icon" class="menu-icon">
-                        <img src="images/milk.webp" alt="Milk Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- School Items 1 -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="school_items1" onclick="selectLesson('school_items1')">
-                        School Items 1
-                        <img src="images/pen.webp" alt="Pen Icon" class="menu-icon">
-                        <img src="images/school_bag.webp" alt="School Bag Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- School Items 2 -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="school_items2" onclick="selectLesson('school_items2')">
-                        School Items 2
-                        <img src="images/book.webp" alt="Book Icon" class="menu-icon">
-                        <img src="images/pencil.webp" alt="Pencil Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Clothes 1 -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="clothes1" onclick="selectLesson('clothes1')">
-                        Clothes 1
-                        <img src="images/shirt.webp" alt="Shirt Icon" class="menu-icon">
-                        <img src="images/pants.webp" alt="Pants Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Clothes 2 -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="clothes2" onclick="selectLesson('clothes2')">
-                        Clothes 2
-                        <img src="images/dress.webp" alt="Dress Icon" class="menu-icon">
-                        <img src="images/jacket.webp" alt="Jacket Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Kitchen Items 1 -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="kitchen_items1" onclick="selectLesson('kitchen_items1')">
-                        Kitchen Items 1
-                        <img src="images/spoon.webp" alt="Spoon Icon" class="menu-icon">
-                        <img src="images/fork.webp" alt="Fork Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Kitchen Items 2 -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="kitchen_items2" onclick="selectLesson('kitchen_items2')">
-                        Kitchen Items 2
-                        <img src="images/knife.webp" alt="Knife Icon" class="menu-icon">
-                        <img src="images/pot.webp" alt="Pot Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Home Furniture 1 -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="home_furniture1" onclick="selectLesson('home_furniture1')">
-                        Home Furniture 1
-                        <img src="images/bed.webp" alt="Bed Icon" class="menu-icon">
-                        <img src="images/table.webp" alt="Table Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Home Furniture 2 -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="home_furniture2" onclick="selectLesson('home_furniture2')">
-                        Home Furniture 2
-                        <img src="images/sofa.webp" alt="Sofa Icon" class="menu-icon">
-                        <img src="images/mirror.webp" alt="Mirror Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Toys 1 -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="toys1" onclick="selectLesson('toys1')">
-                        Toys 1
-                        <img src="images/toy_ball.webp" alt="Toy Ball Icon" class="menu-icon">
-                        <img src="images/toy_doll.webp" alt="Toy Doll Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Toys 2 -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="toys2" onclick="selectLesson('toys2')">
-                        Toys 2
-                        <img src="images/toy_kite.webp" alt="Toy Kite Icon" class="menu-icon">
-                        <img src="images/teddy.webp" alt="Teddy Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Nature 1 -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="nature1" onclick="selectLesson('nature1')">
-                        Nature 1
-                        <img src="images/sky.webp" alt="Sky Icon" class="menu-icon">
-                        <img src="images/cloud.webp" alt="Cloud Icon" class="menu-icon">
-                    </button>
-                </li>
-
-                <!-- Nature 2 -->
-                <li>
-                    <button class="lesson-button" data-lesson-id="nature2" onclick="selectLesson('nature2')">
-                        Nature 2
-                        <img src="images/flower.webp" alt="Flower Icon" class="menu-icon">
-                        <img src="images/tree.webp" alt="Tree Icon" class="menu-icon">
-                    </button>
-                </li>
-            </ul>
+    <!-- Navigation Bar in index.html -->
+    <nav class="navbar">
+        <div class="navbar-brand">Learn and Play</div>
+        <div class="navbar-toggle" id="navbar-toggle">
+            &#9776; <!-- Hamburger Icon -->
         </div>
-    </div>
-
-    <!-- Sidebar for Lesson Selection -->
-    <div class="sidebar" id="sidebar">
-        <h2>Lessons</h2>
-        <ul>
-            <!-- Animals Lesson -->
-            <li>
-                <button class="lesson-button" data-lesson-id="animals" onclick="selectLesson('animals')">
-                    Animals
-                    <img src="images/lion.webp" alt="Lion Icon" class="menu-icon">
-                    <img src="images/fish.webp" alt="Fish Icon" class="menu-icon">
-                </button>
+        <ul class="navbar-menu" id="navbar-menu">
+            <!-- Lessons Link -->
+            <li class="navbar-item">
+                <a href="intro.html" class="navbar-link">Lessons</a>
             </li>
-
-            <!-- Vegetables Lesson -->
-            <li>
-                <button class="lesson-button" data-lesson-id="vegetables" onclick="selectLesson('vegetables')">
-                    Vegetables
-                    <img src="images/carrot.webp" alt="Carrot Icon" class="menu-icon">
-                    <img src="images/broccoli.webp" alt="Broccoli Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- Fruits Lesson -->
-            <li>
-                <button class="lesson-button" data-lesson-id="fruits" onclick="selectLesson('fruits')">
-                    Fruits
-                    <img src="images/apple.webp" alt="Apple Icon" class="menu-icon">
-                    <img src="images/banana.webp" alt="Banana Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- Colors Lesson -->
-            <li>
-                <button class="lesson-button" data-lesson-id="colors" onclick="selectLesson('colors')">
-                    Colors
-                    <span class="color-icon" style="background-color: red;"></span>
-                    <span class="color-icon" style="background-color: blue;"></span>
-                </button>
-            </li>
-
-            <!-- Numbers Lesson -->
-            <li>
-                <button class="lesson-button" data-lesson-id="numbers" onclick="selectLesson('numbers')">
-                    Numbers
-                    <span class="number-icon">1</span>
-                    <span class="number-icon">2</span>
-                </button>
-            </li>
-
-            <!-- Shapes Lesson -->
-            <li>
-                <button class="lesson-button" data-lesson-id="shapes" onclick="selectLesson('shapes')">
-                    Shapes
-                    <svg class="menu-icon" width="20" height="20" viewBox="0 0 100 100">
-                        <rect width="100" height="100" style="fill:#f1c40f;"></rect>
-                    </svg>
-                    <svg class="menu-icon" width="20" height="20" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="50" style="fill:#e74c3c;"></circle>
-                    </svg>
-                </button>
-            </li>
-
-            <!-- Alphabet Lesson -->
-            <li>
-                <button class="lesson-button" data-lesson-id="alphabet" onclick="selectLesson('alphabet')">
-                    Alphabet
-                    <span class="letter-icon">A</span>
-                    <span class="letter-icon">B</span>
-                </button>
-            </li>
-
-            <!-- Emotions Lesson -->
-            <li>
-                <button class="lesson-button" data-lesson-id="emotions" onclick="selectLesson('emotions')">
-                    Emotions
-                    <img src="images/happy.webp" alt="Happy Icon" class="menu-icon">
-                    <img src="images/sad.webp" alt="Sad Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- Vehicles Lesson -->
-            <li>
-                <button class="lesson-button" data-lesson-id="vehicles" onclick="selectLesson('vehicles')">
-                    Vehicles
-                    <img src="images/car.webp" alt="Car Icon" class="menu-icon">
-                    <img src="images/train.webp" alt="Train Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- Food Items 1 -->
-            <li>
-                <button class="lesson-button" data-lesson-id="food1" onclick="selectLesson('food1')">
-                    Food 1
-                    <img src="images/rice.webp" alt="Rice Icon" class="menu-icon">
-                    <img src="images/chicken.webp" alt="Chicken Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- Food Items 2 -->
-            <li>
-                <button class="lesson-button" data-lesson-id="food2" onclick="selectLesson('food2')">
-                    Food 2
-                    <img src="images/bread.webp" alt="Bread Icon" class="menu-icon">
-                    <img src="images/milk.webp" alt="Milk Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- School Items 1 -->
-            <li>
-                <button class="lesson-button" data-lesson-id="school_items1" onclick="selectLesson('school_items1')">
-                    School Items 1
-                    <img src="images/pen.webp" alt="Pen Icon" class="menu-icon">
-                    <img src="images/school_bag.webp" alt="School Bag Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- School Items 2 -->
-            <li>
-                <button class="lesson-button" data-lesson-id="school_items2" onclick="selectLesson('school_items2')">
-                    School Items 2
-                    <img src="images/book.webp" alt="Book Icon" class="menu-icon">
-                    <img src="images/pencil.webp" alt="Pencil Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- Clothes 1 -->
-            <li>
-                <button class="lesson-button" data-lesson-id="clothes1" onclick="selectLesson('clothes1')">
-                    Clothes 1
-                    <img src="images/shirt.webp" alt="Shirt Icon" class="menu-icon">
-                    <img src="images/pants.webp" alt="Pants Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- Clothes 2 -->
-            <li>
-                <button class="lesson-button" data-lesson-id="clothes2" onclick="selectLesson('clothes2')">
-                    Clothes 2
-                    <img src="images/dress.webp" alt="Dress Icon" class="menu-icon">
-                    <img src="images/jacket.webp" alt="Jacket Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- Kitchen Items 1 -->
-            <li>
-                <button class="lesson-button" data-lesson-id="kitchen_items1" onclick="selectLesson('kitchen_items1')">
-                    Kitchen Items 1
-                    <img src="images/spoon.webp" alt="Spoon Icon" class="menu-icon">
-                    <img src="images/fork.webp" alt="Fork Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- Kitchen Items 2 -->
-            <li>
-                <button class="lesson-button" data-lesson-id="kitchen_items2" onclick="selectLesson('kitchen_items2')">
-                    Kitchen Items 2
-                    <img src="images/knife.webp" alt="Knife Icon" class="menu-icon">
-                    <img src="images/pot.webp" alt="Pot Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- Home Furniture 1 -->
-            <li>
-                <button class="lesson-button" data-lesson-id="home_furniture1" onclick="selectLesson('home_furniture1')">
-                    Home Furniture 1
-                    <img src="images/bed.webp" alt="Bed Icon" class="menu-icon">
-                    <img src="images/table.webp" alt="Table Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- Home Furniture 2 -->
-            <li>
-                <button class="lesson-button" data-lesson-id="home_furniture2" onclick="selectLesson('home_furniture2')">
-                    Home Furniture 2
-                    <img src="images/sofa.webp" alt="Sofa Icon" class="menu-icon">
-                    <img src="images/mirror.webp" alt="Mirror Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- Toys 1 -->
-            <li>
-                <button class="lesson-button" data-lesson-id="toys1" onclick="selectLesson('toys1')">
-                    Toys 1
-                    <img src="images/toy_ball.webp" alt="Toy Ball Icon" class="menu-icon">
-                    <img src="images/toy_doll.webp" alt="Toy Doll Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- Toys 2 -->
-            <li>
-                <button class="lesson-button" data-lesson-id="toys2" onclick="selectLesson('toys2')">
-                    Toys 2
-                    <img src="images/toy_kite.webp" alt="Toy Kite Icon" class="menu-icon">
-                    <img src="images/teddy.webp" alt="Teddy Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- Nature 1 -->
-            <li>
-                <button class="lesson-button" data-lesson-id="nature1" onclick="selectLesson('nature1')">
-                    Nature 1
-                    <img src="images/sky.webp" alt="Sky Icon" class="menu-icon">
-                    <img src="images/cloud.webp" alt="Cloud Icon" class="menu-icon">
-                </button>
-            </li>
-
-            <!-- Nature 2 -->
-            <li>
-                <button class="lesson-button" data-lesson-id="nature2" onclick="selectLesson('nature2')">
-                    Nature 2
-                    <img src="images/flower.webp" alt="Flower Icon" class="menu-icon">
-                    <img src="images/tree.webp" alt="Tree Icon" class="menu-icon">
-                </button>
+            <!-- Games Dropdown -->
+            <li class="navbar-item dropdown">
+                <button class="dropdown-toggle">Games &#9662;</button>
+                <ul class="dropdown-menu">
+                    <li><button class="game-button" onclick="selectGame('game1.html')">Game 1</button></li>
+                    <li><button class="game-button" onclick="selectGame('game2.html')">Game 2</button></li>
+                    <li><button class="game-button" onclick="selectGame('game3.html')">Game 3</button></li>
+                </ul>
             </li>
         </ul>
-    </div>
-</div>
+    </nav>
 
-<!-- Sidebar for Lesson Selection -->
-<div class="sidebar" id="sidebar">
-    <h2>Lessons</h2>
-    <ul>
-        <!-- Animals Lesson -->
-        <li>
-            <button class="lesson-button" data-lesson-id="animals" onclick="selectLesson('animals')">
-                Animals
-                <img src="images/lion.webp" alt="Lion Icon" class="menu-icon">
-                <img src="images/fish.webp" alt="Fish Icon" class="menu-icon">
-            </button>
-        </li>
 
-        <!-- Vegetables Lesson -->
-        <li>
-            <button class="lesson-button" data-lesson-id="vegetables" onclick="selectLesson('vegetables')">
-                Vegetables
-                <img src="images/carrot.webp" alt="Carrot Icon" class="menu-icon">
-                <img src="images/broccoli.webp" alt="Broccoli Icon" class="menu-icon">
-            </button>
-        </li>
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div id="content-container">
+            <!-- Quiz Container -->
+            <div class="quiz-container" id="quiz-container">
+                <!-- Animals Lesson -->
+                <div class="lesson" id="animals">
+                    <h2>Animals</h2>
+                    <p class="selected-name" id="selected-name-animals"></p>
+                    <div class="images-container">
+                        <img src="images/lion.webp" alt="Lion" class="option" onclick="selectElement('animals', 'Lion')">
+                        <img src="images/elephant.webp" alt="Elephant" class="option" onclick="selectElement('animals', 'Elephant')">
+                        <img src="images/giraffe.webp" alt="Giraffe" class="option" onclick="selectElement('animals', 'Giraffe')">
+                        <img src="images/zebra.webp" alt="Zebra" class="option" onclick="selectElement('animals', 'Zebra')">
+                        <img src="images/monkey.webp" alt="Monkey" class="option" onclick="selectElement('animals', 'Monkey')">
+                        <img src="images/bird.webp" alt="Bird" class="option" onclick="selectElement('animals', 'Bird')">
+                        <img src="images/cat.webp" alt="Cat" class="option" onclick="selectElement('animals', 'Cat')">
+                        <img src="images/dog.webp" alt="Dog" class="option" onclick="selectElement('animals', 'Dog')">
+                        <img src="images/fish.webp" alt="Fish" class="option" onclick="selectElement('animals', 'Fish')">
+                    </div>
+                </div>
 
-        <!-- Fruits Lesson -->
-        <li>
-            <button class="lesson-button" data-lesson-id="fruits" onclick="selectLesson('fruits')">
-                Fruits
-                <img src="images/apple.webp" alt="Apple Icon" class="menu-icon">
-                <img src="images/banana.webp" alt="Banana Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- Vegetables Lesson -->
+                <div class="lesson" id="vegetables">
+                    <h2>Vegetables</h2>
+                    <p class="selected-name" id="selected-name-vegetables"></p>
+                    <div class="images-container">
+                        <img src="images/carrot.webp" alt="Carrot" class="option" onclick="selectElement('vegetables', 'Carrot')">
+                        <img src="images/broccoli.webp" alt="Broccoli" class="option" onclick="selectElement('vegetables', 'Broccoli')">
+                        <img src="images/potato.webp" alt="Potato" class="option" onclick="selectElement('vegetables', 'Potato')">
+                        <img src="images/tomato.webp" alt="Tomato" class="option" onclick="selectElement('vegetables', 'Tomato')">
+                        <img src="images/onion.webp" alt="Onion" class="option" onclick="selectElement('vegetables', 'Onion')">
+                        <img src="images/cucumber.webp" alt="Cucumber" class="option" onclick="selectElement('vegetables', 'Cucumber')">
+                        <img src="images/pepper.webp" alt="Pepper" class="option" onclick="selectElement('vegetables', 'Pepper')">
+                    </div>
+                </div>
 
-        <!-- Colors Lesson -->
-        <li>
-            <button class="lesson-button" data-lesson-id="colors" onclick="selectLesson('colors')">
-                Colors
-                <span class="color-icon" style="background-color: red;"></span>
-                <span class="color-icon" style="background-color: blue;"></span>
-            </button>
-        </li>
+                <!-- Fruits Lesson -->
+                <div class="lesson" id="fruits">
+                    <h2>Fruits</h2>
+                    <p class="selected-name" id="selected-name-fruits"></p>
+                    <div class="images-container">
+                        <img src="images/apple.webp" alt="Apple" class="option" onclick="selectElement('fruits', 'Apple')">
+                        <img src="images/banana.webp" alt="Banana" class="option" onclick="selectElement('fruits', 'Banana')">
+                        <img src="images/pear.webp" alt="Pear" class="option" onclick="selectElement('fruits', 'Pear')">
+                        <img src="images/coconut.webp" alt="Coconut" class="option" onclick="selectElement('fruits', 'Coconut')">
+                        <img src="images/mango.webp" alt="Mango" class="option" onclick="selectElement('fruits', 'Mango')">
+                        <img src="images/orange.webp" alt="Orange" class="option" onclick="selectElement('fruits', 'Orange')">
+                        <img src="images/grape.webp" alt="Grape" class="option" onclick="selectElement('fruits', 'Grape')">
+                        <img src="images/pineapple.webp" alt="Pineapple" class="option" onclick="selectElement('fruits', 'Pineapple')">
+                        <img src="images/kiwi.webp" alt="Kiwi" class="option" onclick="selectElement('fruits', 'Kiwi')">
+                    </div>
+                </div>
 
-        <!-- Numbers Lesson -->
-        <li>
-            <button class="lesson-button" data-lesson-id="numbers" onclick="selectLesson('numbers')">
-                Numbers
-                <span class="number-icon">1</span>
-                <span class="number-icon">2</span>
-            </button>
-        </li>
+                <!-- Colors Lesson -->
+                <div class="lesson" id="colors">
+                    <h2>Colors</h2>
+                    <p class="selected-name" id="selected-name-colors"></p>
+                    <div class="color-palette">
+                        <div class="color-block" style="background-color: red;" onclick="selectElement('colors', 'Red')">Red</div>
+                        <div class="color-block" style="background-color: blue;" onclick="selectElement('colors', 'Blue')">Blue</div>
+                        <div class="color-block" style="background-color: green;" onclick="selectElement('colors', 'Green')">Green</div>
+                        <div class="color-block" style="background-color: yellow;" onclick="selectElement('colors', 'Yellow')">Yellow</div>
+                        <div class="color-block" style="background-color: purple;" onclick="selectElement('colors', 'Purple')">Purple</div>
+                        <div class="color-block" style="background-color: orange;" onclick="selectElement('colors', 'Orange')">Orange</div>
+                        <div class="color-block" style="background-color: pink;" onclick="selectElement('colors', 'Pink')">Pink</div>
+                        <div class="color-block" style="background-color: brown;" onclick="selectElement('colors', 'Brown')">Brown</div>
+                        <div class="color-block" style="background-color: black;" onclick="selectElement('colors', 'Black')">Black</div>
+                        <div class="color-block" style="background-color: white; color: #000;" onclick="selectElement('colors', 'White')">White</div>
+                    </div>
+                </div>
 
-        <!-- Shapes Lesson -->
-        <li>
-            <button class="lesson-button" data-lesson-id="shapes" onclick="selectLesson('shapes')">
-                Shapes
-                <svg class="menu-icon" width="20" height="20" viewBox="0 0 100 100">
-                    <rect width="100" height="100" style="fill:#f1c40f;"></rect>
-                </svg>
-                <svg class="menu-icon" width="20" height="20" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="50" style="fill:#e74c3c;"></circle>
-                </svg>
-            </button>
-        </li>
+                <!-- Numbers Lesson -->
+                <div class="lesson" id="numbers">
+                    <h2>Numbers</h2>
+                    <p class="selected-name" id="selected-name-numbers"></p>
+                    <div class="number-options">
+                        <button onclick="selectElement('numbers', '1')">1</button>
+                        <button onclick="selectElement('numbers', '2')">2</button>
+                        <button onclick="selectElement('numbers', '3')">3</button>
+                        <button onclick="selectElement('numbers', '4')">4</button>
+                        <button onclick="selectElement('numbers', '5')">5</button>
+                        <button onclick="selectElement('numbers', '6')">6</button>
+                        <button onclick="selectElement('numbers', '7')">7</button>
+                        <button onclick="selectElement('numbers', '8')">8</button>
+                        <button onclick="selectElement('numbers', '9')">9</button>
+                        <button onclick="selectElement('numbers', '10')">10</button>
+                    </div>
+                </div>
 
-        <!-- Alphabet Lesson -->
-        <li>
-            <button class="lesson-button" data-lesson-id="alphabet" onclick="selectLesson('alphabet')">
-                Alphabet
-                <span class="letter-icon">A</span>
-                <span class="letter-icon">B</span>
-            </button>
-        </li>
+                <!-- Shapes Lesson -->
+                <div class="lesson" id="shapes">
+                    <h2>Shapes</h2>
+                    <p class="selected-name" id="selected-name-shapes"></p>
+                    <div class="images-container">
+                        <!-- Triangle -->
+                        <svg class="svg-shape" onclick="selectElement('shapes', 'Triangle')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                            <polygon points="50,15 90,85 10,85" style="fill:#e74c3c; stroke:#333; stroke-width:2"/>
+                        </svg>
+                        <!-- Circle -->
+                        <svg class="svg-shape" onclick="selectElement('shapes', 'Circle')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="35" style="fill:#3498db; stroke:#333; stroke-width:2"/>
+                        </svg>
+                        <!-- Square -->
+                        <svg class="svg-shape" onclick="selectElement('shapes', 'Square')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                            <rect x="20" y="20" width="60" height="60" style="fill:#2ecc71; stroke:#333; stroke-width:2"/>
+                        </svg>
+                        <!-- Rectangle -->
+                        <svg class="svg-shape" onclick="selectElement('shapes', 'Rectangle')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80">
+                            <rect x="10" y="10" width="100" height="60" style="fill:#f1c40f; stroke:#333; stroke-width:2"/>
+                        </svg>
+                        <!-- Oval -->
+                        <svg class="svg-shape" onclick="selectElement('shapes', 'Oval')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60">
+                            <ellipse cx="50" cy="30" rx="40" ry="20" style="fill:#9b59b6; stroke:#333; stroke-width:2"/>
+                        </svg>
+                    </div>
+                </div>
 
-        <!-- Emotions Lesson -->
-        <li>
-            <button class="lesson-button" data-lesson-id="emotions" onclick="selectLesson('emotions')">
-                Emotions
-                <img src="images/happy.webp" alt="Happy Icon" class="menu-icon">
-                <img src="images/sad.webp" alt="Sad Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- Alphabet Lesson -->
+                <div class="lesson" id="alphabet">
+                    <h2>Alphabet</h2>
+                    <p class="selected-name" id="selected-name-alphabet"></p>
+                    <div class="letter-options">
+                        <div class="letter-option" style="background-color: #e74c3c;" onclick="selectElement('alphabet', 'A')">A</div>
+                        <div class="letter-option" style="background-color: #3498db;" onclick="selectElement('alphabet', 'B')">B</div>
+                        <div class="letter-option" style="background-color: #2ecc71;" onclick="selectElement('alphabet', 'C')">C</div>
+                        <div class="letter-option" style="background-color: #f1c40f;" onclick="selectElement('alphabet', 'D')">D</div>
+                        <div class="letter-option" style="background-color: #9b59b6;" onclick="selectElement('alphabet', 'E')">E</div>
+                        <div class="letter-option" style="background-color: #1abc9c;" onclick="selectElement('alphabet', 'F')">F</div>
+                        <div class="letter-option" style="background-color: #e67e22;" onclick="selectElement('alphabet', 'G')">G</div>
+                        <div class="letter-option" style="background-color: #34495e;" onclick="selectElement('alphabet', 'H')">H</div>
+                        <div class="letter-option" style="background-color: #95a5a6;" onclick="selectElement('alphabet', 'I')">I</div>
+                        <!-- Add more letters as needed -->
+                    </div>
+                </div>
 
-        <!-- Vehicles Lesson -->
-        <li>
-            <button class="lesson-button" data-lesson-id="vehicles" onclick="selectLesson('vehicles')">
-                Vehicles
-                <img src="images/car.webp" alt="Car Icon" class="menu-icon">
-                <img src="images/train.webp" alt="Train Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- Emotions Lesson -->
+                <div class="lesson" id="emotions">
+                    <h2>Emotions</h2>
+                    <p class="selected-name" id="selected-name-emotions"></p>
+                    <div class="images-container">
+                        <img src="images/happy.webp" alt="Happy" class="option" onclick="selectElement('emotions', 'Happy')">
+                        <img src="images/sad.webp" alt="Sad" class="option" onclick="selectElement('emotions', 'Sad')">
+                        <img src="images/surprised.webp" alt="Surprised" class="option" onclick="selectElement('emotions', 'Surprised')">
+                        <img src="images/excited.webp" alt="Excited" class="option" onclick="selectElement('emotions', 'Excited')">
+                        <img src="images/tired.webp" alt="Tired" class="option" onclick="selectElement('emotions', 'Tired')">
+                    </div>
+                </div>
 
-        <!-- Food Items 1 -->
-        <li>
-            <button class="lesson-button" data-lesson-id="food1" onclick="selectLesson('food1')">
-                Food 1
-                <img src="images/rice.webp" alt="Rice Icon" class="menu-icon">
-                <img src="images/chicken.webp" alt="Chicken Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- Vehicles Lesson -->
+                <div class="lesson" id="vehicles">
+                    <h2>Vehicles</h2>
+                    <p class="selected-name" id="selected-name-vehicles"></p>
+                    <div class="images-container">
+                        <img src="images/car.webp" alt="Car" class="option" onclick="selectElement('vehicles', 'Car')">
+                        <img src="images/train.webp" alt="Train" class="option" onclick="selectElement('vehicles', 'Train')">
+                        <img src="images/aeroplane.webp" alt="Aeroplane" class="option" onclick="selectElement('vehicles', 'Aeroplane')">
+                        <img src="images/bike.webp" alt="Bike" class="option" onclick="selectElement('vehicles', 'Bike')">
+                        <img src="images/helicopter.webp" alt="Helicopter" class="option" onclick="selectElement('vehicles', 'Helicopter')">
+                    </div>
+                </div>
 
-        <!-- Food Items 2 -->
-        <li>
-            <button class="lesson-button" data-lesson-id="food2" onclick="selectLesson('food2')">
-                Food 2
-                <img src="images/bread.webp" alt="Bread Icon" class="menu-icon">
-                <img src="images/milk.webp" alt="Milk Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- Food Items 1 Lesson -->
+                <div class="lesson" id="food1">
+                    <h2>Food 1</h2>
+                    <p class="selected-name" id="selected-name-food1"></p>
+                    <div class="images-container">
+                        <img src="images/rice.webp" alt="Rice" class="option" onclick="selectElement('food1', 'Rice')">
+                        <img src="images/chicken.webp" alt="Chicken" class="option" onclick="selectElement('food1', 'Chicken')">
+                        <img src="images/water.webp" alt="Water" class="option" onclick="selectElement('food1', 'Water')">
+                        <img src="images/cake.webp" alt="Cake" class="option" onclick="selectElement('food1', 'Cake')">
+                        <img src="images/cookie.webp" alt="Cookie" class="option" onclick="selectElement('food1', 'Cookie')">
+                    </div>
+                </div>
 
-        <!-- School Items 1 -->
-        <li>
-            <button class="lesson-button" data-lesson-id="school_items1" onclick="selectLesson('school_items1')">
-                School Items 1
-                <img src="images/pen.webp" alt="Pen Icon" class="menu-icon">
-                <img src="images/school_bag.webp" alt="School Bag Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- Food Items 2 Lesson -->
+                <div class="lesson" id="food2">
+                    <h2>Food 2</h2>
+                    <p class="selected-name" id="selected-name-food2"></p>
+                    <div class="images-container">
+                        <img src="images/bread.webp" alt="Bread" class="option" onclick="selectElement('food2', 'Bread')">
+                        <img src="images/milk.webp" alt="Milk" class="option" onclick="selectElement('food2', 'Milk')">
+                        <img src="images/corn.webp" alt="Corn" class="option" onclick="selectElement('food2', 'Corn')">
+                        <img src="images/bean.webp" alt="Bean" class="option" onclick="selectElement('food2', 'Bean')">
+                    </div>
+                </div>
 
-        <!-- School Items 2 -->
-        <li>
-            <button class="lesson-button" data-lesson-id="school_items2" onclick="selectLesson('school_items2')">
-                School Items 2
-                <img src="images/book.webp" alt="Book Icon" class="menu-icon">
-                <img src="images/pencil.webp" alt="Pencil Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- School Items 1 Lesson -->
+                <div class="lesson" id="school_items1">
+                    <h2>School Items 1</h2>
+                    <p class="selected-name" id="selected-name-school_items1"></p>
+                    <div class="images-container">
+                        <img src="images/pen.webp" alt="Pen" class="option" onclick="selectElement('school_items1', 'Pen')">
+                        <img src="images/school_bag.webp" alt="School Bag" class="option" onclick="selectElement('school_items1', 'School Bag')">
+                        <img src="images/desk.webp" alt="Desk" class="option" onclick="selectElement('school_items1', 'Desk')">
+                        <img src="images/paper.webp" alt="Paper" class="option" onclick="selectElement('school_items1', 'Paper')">
+                        <img src="images/ruler.webp" alt="Ruler" class="option" onclick="selectElement('school_items1', 'Ruler')">
+                    </div>
+                </div>
 
-        <!-- Clothes 1 -->
-        <li>
-            <button class="lesson-button" data-lesson-id="clothes1" onclick="selectLesson('clothes1')">
-                Clothes 1
-                <img src="images/shirt.webp" alt="Shirt Icon" class="menu-icon">
-                <img src="images/pants.webp" alt="Pants Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- School Items 2 Lesson -->
+                <div class="lesson" id="school_items2">
+                    <h2>School Items 2</h2>
+                    <p class="selected-name" id="selected-name-school_items2"></p>
+                    <div class="images-container">
+                        <img src="images/eraser.webp" alt="Eraser" class="option" onclick="selectElement('school_items2', 'Eraser')">
+                        <img src="images/book.webp" alt="Book" class="option" onclick="selectElement('school_items2', 'Book')">
+                        <img src="images/pencil.webp" alt="Pencil" class="option" onclick="selectElement('school_items2', 'Pencil')">
+                        <img src="images/scissors.webp" alt="Scissors" class="option" onclick="selectElement('school_items2', 'Scissors')">
+                    </div>
+                </div>
 
-        <!-- Clothes 2 -->
-        <li>
-            <button class="lesson-button" data-lesson-id="clothes2" onclick="selectLesson('clothes2')">
-                Clothes 2
-                <img src="images/dress.webp" alt="Dress Icon" class="menu-icon">
-                <img src="images/jacket.webp" alt="Jacket Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- Clothes 1 Lesson -->
+                <div class="lesson" id="clothes1">
+                    <h2>Clothes 1</h2>
+                    <p class="selected-name" id="selected-name-clothes1"></p>
+                    <div class="images-container">
+                        <img src="images/shirt.webp" alt="Shirt" class="option" onclick="selectElement('clothes1', 'Shirt')">
+                        <img src="images/pants.webp" alt="Pants" class="option" onclick="selectElement('clothes1', 'Pants')">
+                        <img src="images/shoes.webp" alt="Shoes" class="option" onclick="selectElement('clothes1', 'Shoes')">
+                        <img src="images/socks.webp" alt="Socks" class="option" onclick="selectElement('clothes1', 'Socks')">
+                        <img src="images/hat.webp" alt="Hat" class="option" onclick="selectElement('clothes1', 'Hat')">
+                    </div>
+                </div>
 
-        <!-- Kitchen Items 1 -->
-        <li>
-            <button class="lesson-button" data-lesson-id="kitchen_items1" onclick="selectLesson('kitchen_items1')">
-                Kitchen Items 1
-                <img src="images/spoon.webp" alt="Spoon Icon" class="menu-icon">
-                <img src="images/fork.webp" alt="Fork Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- Clothes 2 Lesson -->
+                <div class="lesson" id="clothes2">
+                    <h2>Clothes 2</h2>
+                    <p class="selected-name" id="selected-name-clothes2"></p>
+                    <div class="images-container">
+                        <img src="images/dress.webp" alt="Dress" class="option" onclick="selectElement('clothes2', 'Dress')">
+                        <img src="images/jacket.webp" alt="Jacket" class="option" onclick="selectElement('clothes2', 'Jacket')">
+                        <img src="images/sweater.webp" alt="Sweater" class="option" onclick="selectElement('clothes2', 'Sweater')">
+                        <img src="images/skirt.webp" alt="Skirt" class="option" onclick="selectElement('clothes2', 'Skirt')">
+                        <img src="images/coat.webp" alt="Coat" class="option" onclick="selectElement('clothes2', 'Coat')">
+                    </div>
+                </div>
 
-        <!-- Kitchen Items 2 -->
-        <li>
-            <button class="lesson-button" data-lesson-id="kitchen_items2" onclick="selectLesson('kitchen_items2')">
-                Kitchen Items 2
-                <img src="images/knife.webp" alt="Knife Icon" class="menu-icon">
-                <img src="images/pot.webp" alt="Pot Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- Kitchen Items 1 Lesson -->
+                <div class="lesson" id="kitchen_items1">
+                    <h2>Kitchen Items 1</h2>
+                    <p class="selected-name" id="selected-name-kitchen_items1"></p>
+                    <div class="images-container">
+                        <img src="images/spoon.webp" alt="Spoon" class="option" onclick="selectElement('kitchen_items1', 'Spoon')">
+                        <img src="images/fork.webp" alt="Fork" class="option" onclick="selectElement('kitchen_items1', 'Fork')">
+                        <img src="images/plate.webp" alt="Plate" class="option" onclick="selectElement('kitchen_items1', 'Plate')">
+                        <img src="images/cup.webp" alt="Cup" class="option" onclick="selectElement('kitchen_items1', 'Cup')">
+                        <img src="images/bowl.webp" alt="Bowl" class="option" onclick="selectElement('kitchen_items1', 'Bowl')">
+                    </div>
+                </div>
 
-        <!-- Home Furniture 1 -->
-        <li>
-            <button class="lesson-button" data-lesson-id="home_furniture1" onclick="selectLesson('home_furniture1')">
-                Home Furniture 1
-                <img src="images/bed.webp" alt="Bed Icon" class="menu-icon">
-                <img src="images/table.webp" alt="Table Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- Kitchen Items 2 Lesson -->
+                <div class="lesson" id="kitchen_items2">
+                    <h2>Kitchen Items 2</h2>
+                    <p class="selected-name" id="selected-name-kitchen_items2"></p>
+                    <div class="images-container">
+                        <img src="images/knife.webp" alt="Knife" class="option" onclick="selectElement('kitchen_items2', 'Knife')">
+                        <img src="images/pot.webp" alt="Pot" class="option" onclick="selectElement('kitchen_items2', 'Pot')">
+                        <img src="images/pan.webp" alt="Pan" class="option" onclick="selectElement('kitchen_items2', 'Pan')">
+                        <img src="images/glass.webp" alt="Glass" class="option" onclick="selectElement('kitchen_items2', 'Glass')">
+                        <img src="images/bottle.webp" alt="Bottle" class="option" onclick="selectElement('kitchen_items2', 'Bottle')">
+                    </div>
+                </div>
 
-        <!-- Home Furniture 2 -->
-        <li>
-            <button class="lesson-button" data-lesson-id="home_furniture2" onclick="selectLesson('home_furniture2')">
-                Home Furniture 2
-                <img src="images/sofa.webp" alt="Sofa Icon" class="menu-icon">
-                <img src="images/mirror.webp" alt="Mirror Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- Home Furniture 1 Lesson -->
+                <div class="lesson" id="home_furniture1">
+                    <h2>Home Furniture 1</h2>
+                    <p class="selected-name" id="selected-name-home_furniture1"></p>
+                    <div class="images-container">
+                        <img src="images/bed.webp" alt="Bed" class="option" onclick="selectElement('home_furniture1', 'Bed')">
+                        <img src="images/table.webp" alt="Table" class="option" onclick="selectElement('home_furniture1', 'Table')">
+                        <img src="images/sofa.webp" alt="Sofa" class="option" onclick="selectElement('home_furniture1', 'Sofa')">
+                        <img src="images/mirror.webp" alt="Mirror" class="option" onclick="selectElement('home_furniture1', 'Mirror')">
+                        <img src="images/lamp.webp" alt="Lamp" class="option" onclick="selectElement('home_furniture1', 'Lamp')">
+                    </div>
+                </div>
 
-        <!-- Toys 1 -->
-        <li>
-            <button class="lesson-button" data-lesson-id="toys1" onclick="selectLesson('toys1')">
-                Toys 1
-                <img src="images/toy_ball.webp" alt="Toy Ball Icon" class="menu-icon">
-                <img src="images/toy_doll.webp" alt="Toy Doll Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- Home Furniture 2 Lesson -->
+                <div class="lesson" id="home_furniture2">
+                    <h2>Home Furniture 2</h2>
+                    <p class="selected-name" id="selected-name-home_furniture2"></p>
+                    <div class="images-container">
+                        <img src="images/clock.webp" alt="Clock" class="option" onclick="selectElement('home_furniture2', 'Clock')">
+                        <img src="images/door.webp" alt="Door" class="option" onclick="selectElement('home_furniture2', 'Door')">
+                        <img src="images/wall.webp" alt="Wall" class="option" onclick="selectElement('home_furniture2', 'Wall')">
+                        <img src="images/floor.webp" alt="Floor" class="option" onclick="selectElement('home_furniture2', 'Floor')">
+                        <img src="images/window.webp" alt="Window" class="option" onclick="selectElement('home_furniture2', 'Window')">
+                    </div>
+                </div>
 
-        <!-- Toys 2 -->
-        <li>
-            <button class="lesson-button" data-lesson-id="toys2" onclick="selectLesson('toys2')">
-                Toys 2
-                <img src="images/toy_kite.webp" alt="Toy Kite Icon" class="menu-icon">
-                <img src="images/teddy.webp" alt="Teddy Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- Toys 1 Lesson -->
+                <div class="lesson" id="toys1">
+                    <h2>Toys 1</h2>
+                    <p class="selected-name" id="selected-name-toys1"></p>
+                    <div class="images-container">
+                        <img src="images/toy_ball.webp" alt="Toy Ball" class="option" onclick="selectElement('toys1', 'Toy Ball')">
+                        <img src="images/toy_doll.webp" alt="Toy Doll" class="option" onclick="selectElement('toys1', 'Toy Doll')">
+                        <img src="images/toy_truck.webp" alt="Toy Truck" class="option" onclick="selectElement('toys1', 'Toy Truck')">
+                        <img src="images/toy_robot.webp" alt="Toy Robot" class="option" onclick="selectElement('toys1', 'Toy Robot')">
+                        <img src="images/toy_bike.webp" alt="Toy Bike" class="option" onclick="selectElement('toys1', 'Toy Bike')">
+                    </div>
+                </div>
 
-        <!-- Nature 1 -->
-        <li>
-            <button class="lesson-button" data-lesson-id="nature1" onclick="selectLesson('nature1')">
-                Nature 1
-                <img src="images/sky.webp" alt="Sky Icon" class="menu-icon">
-                <img src="images/cloud.webp" alt="Cloud Icon" class="menu-icon">
-            </button>
-        </li>
+                <!-- Toys 2 Lesson -->
+                <div class="lesson" id="toys2">
+                    <h2>Toys 2</h2>
+                    <p class="selected-name" id="selected-name-toys2"></p>
+                    <div class="images-container">
+                        <img src="images/toy_kite.webp" alt="Toy Kite" class="option" onclick="selectElement('toys2', 'Toy Kite')">
+                        <img src="images/toy_train.webp" alt="Toy Train" class="option" onclick="selectElement('toys2', 'Toy Train')">
+                        <img src="images/block.webp" alt="Block" class="option" onclick="selectElement('toys2', 'Block')">
+                        <img src="images/teddy.webp" alt="Teddy" class="option" onclick="selectElement('toys2', 'Teddy')">
+                    </div>
+                </div>
 
-        <!-- Nature 2 -->
-        <li>
-            <button class="lesson-button" data-lesson-id="nature2" onclick="selectLesson('nature2')">
-                Nature 2
-                <img src="images/flower.webp" alt="Flower Icon" class="menu-icon">
-                <img src="images/tree.webp" alt="Tree Icon" class="menu-icon">
-            </button>
-        </li>
-    </ul>
-</div>
-</div>
+                <!-- Nature 1 Lesson -->
+                <div class="lesson" id="nature1">
+                    <h2>Nature 1</h2>
+                    <p class="selected-name" id="selected-name-nature1"></p>
+                    <div class="images-container">
+                        <img src="images/sky.webp" alt="Sky" class="option" onclick="selectElement('nature1', 'Sky')">
+                        <img src="images/cloud.webp" alt="Cloud" class="option" onclick="selectElement('nature1', 'Cloud')">
+                        <img src="images/grass.webp" alt="Grass" class="option" onclick="selectElement('nature1', 'Grass')">
+                        <img src="images/star.webp" alt="Star" class="option" onclick="selectElement('nature1', 'Star')">
+                        <img src="images/rain.webp" alt="Rain" class="option" onclick="selectElement('nature1', 'Rain')">
+                    </div>
+                </div>
 
-<!-- Main Content Area -->
-<div class="main-content">
-    <div class="quiz-container" id="quiz-container">
-        <!-- Animals Lesson -->
-        <div class="lesson" id="animals" style="display: none;">
-            <h2>Animals</h2>
-            <p class="selected-name" id="selected-name-animals"></p>
-            <div class="images-container">
-                <img src="images/lion.webp" alt="Lion" class="option" onclick="selectElement('animals', 'Lion')">
-                <img src="images/elephant.webp" alt="Elephant" class="option" onclick="selectElement('animals', 'Elephant')">
-                <img src="images/giraffe.webp" alt="Giraffe" class="option" onclick="selectElement('animals', 'Giraffe')">
-                <img src="images/zebra.webp" alt="Zebra" class="option" onclick="selectElement('animals', 'Zebra')">
-                <img src="images/monkey.webp" alt="Monkey" class="option" onclick="selectElement('animals', 'Monkey')">
-                <img src="images/bird.webp" alt="Bird" class="option" onclick="selectElement('animals', 'Bird')">
-                <img src="images/cat.webp" alt="Cat" class="option" onclick="selectElement('animals', 'Cat')">
-                <img src="images/dog.webp" alt="Dog" class="option" onclick="selectElement('animals', 'Dog')">
-                <img src="images/fish.webp" alt="Fish" class="option" onclick="selectElement('animals', 'Fish')">
+                <!-- Nature 2 Lesson -->
+                <div class="lesson" id="nature2">
+                    <h2>Nature 2</h2>
+                    <p class="selected-name" id="selected-name-nature2"></p>
+                    <div class="images-container">
+                        <img src="images/snow.webp" alt="Snow" class="option" onclick="selectElement('nature2', 'Snow')">
+                        <img src="images/flower.webp" alt="Flower" class="option" onclick="selectElement('nature2', 'Flower')">
+                        <img src="images/tree.webp" alt="Tree" class="option" onclick="selectElement('nature2', 'Tree')">
+                        <img src="images/sun.webp" alt="Sun" class="option" onclick="selectElement('nature2', 'Sun')">
+                        <img src="images/moon.webp" alt="Moon" class="option" onclick="selectElement('nature2', 'Moon')">
+                    </div>
+                </div>
+
+                <!-- Add other lessons similarly if any -->
+            </div>
+            <!-- Game Container -->
+            <div id="game-container" style="display: none;">
+                <!-- Game content will be loaded here -->
             </div>
         </div>
-
-        <!-- Vegetables Lesson -->
-        <div class="lesson" id="vegetables" style="display: none;">
-            <h2>Vegetables</h2>
-            <p class="selected-name" id="selected-name-vegetables"></p>
-            <div class="images-container">
-                <img src="images/carrot.webp" alt="Carrot" class="option" onclick="selectElement('vegetables', 'Carrot')">
-                <img src="images/broccoli.webp" alt="Broccoli" class="option" onclick="selectElement('vegetables', 'Broccoli')">
-                <img src="images/potato.webp" alt="Potato" class="option" onclick="selectElement('vegetables', 'Potato')">
-                <img src="images/tomato.webp" alt="Tomato" class="option" onclick="selectElement('vegetables', 'Tomato')">
-                <img src="images/onion.webp" alt="Onion" class="option" onclick="selectElement('vegetables', 'Onion')">
-                <img src="images/cucumber.webp" alt="Cucumber" class="option" onclick="selectElement('vegetables', 'Cucumber')">
-                <img src="images/pepper.webp" alt="Pepper" class="option" onclick="selectElement('vegetables', 'Pepper')">
-            </div>
-        </div>
-
-        <!-- Fruits Lesson -->
-        <div class="lesson" id="fruits" style="display: none;">
-            <h2>Fruits</h2>
-            <p class="selected-name" id="selected-name-fruits"></p>
-            <div class="images-container">
-                <img src="images/apple.webp" alt="Apple" class="option" onclick="selectElement('fruits', 'Apple')">
-                <img src="images/banana.webp" alt="Banana" class="option" onclick="selectElement('fruits', 'Banana')">
-                <img src="images/pear.webp" alt="Pear" class="option" onclick="selectElement('fruits', 'Pear')">
-                <img src="images/coconut.webp" alt="Coconut" class="option" onclick="selectElement('fruits', 'Coconut')">
-                <img src="images/mango.webp" alt="Mango" class="option" onclick="selectElement('fruits', 'Mango')">
-                <img src="images/orange.webp" alt="Orange" class="option" onclick="selectElement('fruits', 'Orange')">
-                <img src="images/grape.webp" alt="Grape" class="option" onclick="selectElement('fruits', 'Grape')">
-                <img src="images/pineapple.webp" alt="Pineapple" class="option" onclick="selectElement('fruits', 'Pineapple')">
-                <img src="images/kiwi.webp" alt="Kiwi" class="option" onclick="selectElement('fruits', 'Kiwi')">
-            </div>
-        </div>
-
-        <!-- Colors Lesson -->
-        <div class="lesson" id="colors" style="display: none;">
-            <h2>Colors</h2>
-            <p class="selected-name" id="selected-name-colors"></p>
-            <div class="color-palette">
-                <div class="color-block" style="background-color: red;" onclick="selectElement('colors', 'Red')">Red</div>
-                <div class="color-block" style="background-color: blue;" onclick="selectElement('colors', 'Blue')">Blue</div>
-                <div class="color-block" style="background-color: green;" onclick="selectElement('colors', 'Green')">Green</div>
-                <div class="color-block" style="background-color: yellow;" onclick="selectElement('colors', 'Yellow')">Yellow</div>
-                <div class="color-block" style="background-color: purple;" onclick="selectElement('colors', 'Purple')">Purple</div>
-                <div class="color-block" style="background-color: orange;" onclick="selectElement('colors', 'Orange')">Orange</div>
-                <div class="color-block" style="background-color: pink;" onclick="selectElement('colors', 'Pink')">Pink</div>
-                <div class="color-block" style="background-color: brown;" onclick="selectElement('colors', 'Brown')">Brown</div>
-                <div class="color-block" style="background-color: black;" onclick="selectElement('colors', 'Black')">Black</div>
-                <div class="color-block" style="background-color: white; color: #000;" onclick="selectElement('colors', 'White')">White</div>
-                <!-- Add more colors if needed -->
-            </div>
-        </div>
-
-        <!-- Numbers Lesson -->
-        <div class="lesson" id="numbers" style="display: none;">
-            <h2>Numbers</h2>
-            <p class="selected-name" id="selected-name-numbers"></p>
-            <div class="number-options">
-                <button onclick="selectElement('numbers', '1')">1</button>
-                <button onclick="selectElement('numbers', '2')">2</button>
-                <button onclick="selectElement('numbers', '3')">3</button>
-                <button onclick="selectElement('numbers', '4')">4</button>
-                <button onclick="selectElement('numbers', '5')">5</button>
-                <button onclick="selectElement('numbers', '6')">6</button>
-                <button onclick="selectElement('numbers', '7')">7</button>
-                <button onclick="selectElement('numbers', '8')">8</button>
-                <button onclick="selectElement('numbers', '9')">9</button>
-                <button onclick="selectElement('numbers', '10')">10</button>
-            </div>
-        </div>
-
-        <!-- Shapes Lesson -->
-        <div class="lesson" id="shapes" style="display: none;">
-            <h2>Shapes</h2>
-            <p class="selected-name" id="selected-name-shapes"></p>
-            <div class="images-container">
-                <!-- Triangle -->
-                <svg class="svg-shape" onclick="selectElement('shapes', 'Triangle')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                    <polygon points="50,15 90,85 10,85" style="fill:#e74c3c; stroke:#333; stroke-width:2"/>
-                </svg>
-                <!-- Circle -->
-                <svg class="svg-shape" onclick="selectElement('shapes', 'Circle')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="35" style="fill:#3498db; stroke:#333; stroke-width:2"/>
-                </svg>
-                <!-- Square -->
-                <svg class="svg-shape" onclick="selectElement('shapes', 'Square')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                    <rect x="20" y="20" width="60" height="60" style="fill:#2ecc71; stroke:#333; stroke-width:2"/>
-                </svg>
-                <!-- Rectangle -->
-                <svg class="svg-shape" onclick="selectElement('shapes', 'Rectangle')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80">
-                    <rect x="10" y="10" width="100" height="60" style="fill:#f1c40f; stroke:#333; stroke-width:2"/>
-                </svg>
-                <!-- Oval -->
-                <svg class="svg-shape" onclick="selectElement('shapes', 'Oval')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60">
-                    <ellipse cx="50" cy="30" rx="40" ry="20" style="fill:#9b59b6; stroke:#333; stroke-width:2"/>
-                </svg>
-                <!-- Additional Shapes if needed -->
-            </div>
-        </div>
-
-        <!-- Alphabet Lesson -->
-        <div class="lesson" id="alphabet" style="display: none;">
-            <h2>Alphabet</h2>
-            <p class="selected-name" id="selected-name-alphabet"></p>
-            <div class="letter-options">
-                <div class="letter-option" style="background-color: #e74c3c;" onclick="selectElement('alphabet', 'A')">A</div>
-                <div class="letter-option" style="background-color: #3498db;" onclick="selectElement('alphabet', 'B')">B</div>
-                <div class="letter-option" style="background-color: #2ecc71;" onclick="selectElement('alphabet', 'C')">C</div>
-                <div class="letter-option" style="background-color: #f1c40f;" onclick="selectElement('alphabet', 'D')">D</div>
-                <div class="letter-option" style="background-color: #9b59b6;" onclick="selectElement('alphabet', 'E')">E</div>
-                <div class="letter-option" style="background-color: #1abc9c;" onclick="selectElement('alphabet', 'F')">F</div>
-                <div class="letter-option" style="background-color: #e67e22;" onclick="selectElement('alphabet', 'G')">G</div>
-                <div class="letter-option" style="background-color: #34495e;" onclick="selectElement('alphabet', 'H')">H</div>
-                <div class="letter-option" style="background-color: #95a5a6;" onclick="selectElement('alphabet', 'I')">I</div>
-                <!-- Add more letters if needed -->
-            </div>
-        </div>
-
-        <!-- Emotions Lesson -->
-        <div class="lesson" id="emotions" style="display: none;">
-            <h2>Emotions</h2>
-            <p class="selected-name" id="selected-name-emotions"></p>
-            <div class="images-container">
-                <img src="images/happy.webp" alt="Happy" class="option" onclick="selectElement('emotions', 'Happy')">
-                <img src="images/sad.webp" alt="Sad" class="option" onclick="selectElement('emotions', 'Sad')">
-                <img src="images/surprised.webp" alt="Surprised" class="option" onclick="selectElement('emotions', 'Surprised')">
-                <img src="images/excited.webp" alt="Excited" class="option" onclick="selectElement('emotions', 'Excited')">
-                <img src="images/tired.webp" alt="Tired" class="option" onclick="selectElement('emotions', 'Tired')">
-            </div>
-        </div>
-
-        <!-- Vehicles Lesson -->
-        <div class="lesson" id="vehicles" style="display: none;">
-            <h2>Vehicles</h2>
-            <p class="selected-name" id="selected-name-vehicles"></p>
-            <div class="images-container">
-                <img src="images/car.webp" alt="Car" class="option" onclick="selectElement('vehicles', 'Car')">
-                <img src="images/train.webp" alt="Train" class="option" onclick="selectElement('vehicles', 'Train')">
-                <img src="images/aeroplane.webp" alt="Aeroplane" class="option" onclick="selectElement('vehicles', 'Aeroplane')">
-                <img src="images/bike.webp" alt="Bike" class="option" onclick="selectElement('vehicles', 'Bike')">
-                <img src="images/helicopter.webp" alt="Helicopter" class="option" onclick="selectElement('vehicles', 'Helicopter')">
-                <!-- Add more vehicles if desired -->
-            </div>
-        </div>
-
-        <!-- New Animal Sub-Lessons -->
-
-        <!-- Animals 2 -->
-        <div class="lesson" id="animals2" style="display: none;">
-            <h2>Animals 2</h2>
-            <p class="selected-name" id="selected-name-animals2"></p>
-            <div class="images-container">
-                <img src="images/bear.webp" alt="Bear" class="option" onclick="selectElement('animals2', 'Bear')">
-                <img src="images/snake.webp" alt="Snake" class="option" onclick="selectElement('animals2', 'Snake')">
-                <img src="images/dinosaur.webp" alt="Dinosaur" class="option" onclick="selectElement('animals2', 'Dinosaur')">
-                <img src="images/panda.webp" alt="Panda" class="option" onclick="selectElement('animals2', 'Panda')">
-                <img src="images/dolphin.webp" alt="Dolphin" class="option" onclick="selectElement('animals2', 'Dolphin')">
-            </div>
-        </div>
-
-        <!-- Animals 3 -->
-        <div class="lesson" id="animals3" style="display: none;">
-            <h2>Animals 3</h2>
-            <p class="selected-name" id="selected-name-animals3"></p>
-            <div class="images-container">
-                <img src="images/horse.webp" alt="Horse" class="option" onclick="selectElement('animals3', 'Horse')">
-                <img src="images/penguin.webp" alt="Penguin" class="option" onclick="selectElement('animals3', 'Penguin')">
-                <img src="images/kangaroo.webp" alt="Kangaroo" class="option" onclick="selectElement('animals3', 'Kangaroo')">
-                <img src="images/turtle.webp" alt="Turtle" class="option" onclick="selectElement('animals3', 'Turtle')">
-                <img src="images/deer.webp" alt="Deer" class="option" onclick="selectElement('animals3', 'Deer')">
-            </div>
-        </div>
-
-        <!-- Animals 4 -->
-        <div class="lesson" id="animals4" style="display: none;">
-            <h2>Animals 4</h2>
-            <p class="selected-name" id="selected-name-animals4"></p>
-            <div class="images-container">
-                <img src="images/fox.webp" alt="Fox" class="option" onclick="selectElement('animals4', 'Fox')">
-                <img src="images/donkey.webp" alt="Donkey" class="option" onclick="selectElement('animals4', 'Donkey')">
-                <img src="images/crocodile.webp" alt="Crocodile" class="option" onclick="selectElement('animals4', 'Crocodile')">
-                <img src="images/hedgehog.webp" alt="Hedgehog" class="option" onclick="selectElement('animals4', 'Hedgehog')">
-                <img src="images/mouse.webp" alt="Mouse" class="option" onclick="selectElement('animals4', 'Mouse')">
-            </div>
-        </div>
-
-        <!-- Animals 5 -->
-        <div class="lesson" id="animals5" style="display: none;">
-            <h2>Animals 5</h2>
-            <p class="selected-name" id="selected-name-animals5"></p>
-            <div class="images-container">
-                <img src="images/pig.webp" alt="Pig" class="option" onclick="selectElement('animals5', 'Pig')">
-                <img src="images/cow.webp" alt="Cow" class="option" onclick="selectElement('animals5', 'Cow')">
-                <img src="images/sheep.webp" alt="Sheep" class="option" onclick="selectElement('animals5', 'Sheep')">
-                <img src="images/rabbit.webp" alt="Rabbit" class="option" onclick="selectElement('animals5', 'Rabbit')">
-                <img src="images/chicken.webp" alt="Chicken" class="option" onclick="selectElement('animals5', 'Chicken')">
-            </div>
-        </div>
-
-        <!-- Food Items 1 -->
-        <div class="lesson" id="food1" style="display: none;">
-            <h2>Food 1</h2>
-            <p class="selected-name" id="selected-name-food1"></p>
-            <div class="images-container">
-                <img src="images/rice.webp" alt="Rice" class="option" onclick="selectElement('food1', 'Rice')">
-                <img src="images/chicken.webp" alt="Chicken" class="option" onclick="selectElement('food1', 'Chicken')">
-                <img src="images/water.webp" alt="Water" class="option" onclick="selectElement('food1', 'Water')">
-                <img src="images/cake.webp" alt="Cake" class="option" onclick="selectElement('food1', 'Cake')">
-                <img src="images/cookie.webp" alt="Cookie" class="option" onclick="selectElement('food1', 'Cookie')">
-            </div>
-        </div>
-
-        <!-- Food Items 2 -->
-        <div class="lesson" id="food2" style="display: none;">
-            <h2>Food 2</h2>
-            <p class="selected-name" id="selected-name-food2"></p>
-            <div class="images-container">
-                <img src="images/bread.webp" alt="Bread" class="option" onclick="selectElement('food2', 'Bread')">
-                <img src="images/milk.webp" alt="Milk" class="option" onclick="selectElement('food2', 'Milk')">
-                <img src="images/corn.webp" alt="Corn" class="option" onclick="selectElement('food2', 'Corn')">
-                <img src="images/bean.webp" alt="Bean" class="option" onclick="selectElement('food2', 'Bean')">
-            </div>
-        </div>
-
-        <!-- School Items 1 -->
-        <div class="lesson" id="school_items1" style="display: none;">
-            <h2>School Items 1</h2>
-            <p class="selected-name" id="selected-name-school_items1"></p>
-            <div class="images-container">
-                <img src="images/pen.webp" alt="Pen" class="option" onclick="selectElement('school_items1', 'Pen')">
-                <img src="images/school_bag.webp" alt="School Bag" class="option" onclick="selectElement('school_items1', 'School Bag')">
-                <img src="images/desk.webp" alt="Desk" class="option" onclick="selectElement('school_items1', 'Desk')">
-                <img src="images/paper.webp" alt="Paper" class="option" onclick="selectElement('school_items1', 'Paper')">
-                <img src="images/ruler.webp" alt="Ruler" class="option" onclick="selectElement('school_items1', 'Ruler')">
-            </div>
-        </div>
-
-        <!-- School Items 2 -->
-        <div class="lesson" id="school_items2" style="display: none;">
-            <h2>School Items 2</h2>
-            <p class="selected-name" id="selected-name-school_items2"></p>
-            <div class="images-container">
-                <img src="images/eraser.webp" alt="Eraser" class="option" onclick="selectElement('school_items2', 'Eraser')">
-                <img src="images/book.webp" alt="Book" class="option" onclick="selectElement('school_items2', 'Book')">
-                <img src="images/pencil.webp" alt="Pencil" class="option" onclick="selectElement('school_items2', 'Pencil')">
-                <img src="images/scissors.webp" alt="Scissors" class="option" onclick="selectElement('school_items2', 'Scissors')">
-            </div>
-        </div>
-
-        <!-- School Items 3 -->
-        <div class="lesson" id="school_items3" style="display: none;">
-            <h2>School Items 3</h2>
-            <p class="selected-name" id="selected-name-school_items3"></p>
-            <div class="images-container">
-                <img src="images/desk.webp" alt="Desk" class="option" onclick="selectElement('school_items3', 'Desk')">
-                <img src="images/paper.webp" alt="Paper" class="option" onclick="selectElement('school_items3', 'Paper')">
-            </div>
-        </div>
-
-        <!-- School Items 4 -->
-        <div class="lesson" id="school_items4" style="display: none;">
-            <h2>School Items 4</h2>
-            <p class="selected-name" id="selected-name-school_items4"></p>
-            <div class="images-container">
-                <img src="images/ruler.webp" alt="Ruler" class="option" onclick="selectElement('school_items4', 'Ruler')">
-                <img src="images/eraser.webp" alt="Eraser" class="option" onclick="selectElement('school_items4', 'Eraser')">
-            </div>
-        </div>
-
-        <!-- School Items 5 -->
-        <div class="lesson" id="school_items5" style="display: none;">
-            <h2>School Items 5</h2>
-            <p class="selected-name" id="selected-name-school_items5"></p>
-            <div class="images-container">
-                <img src="images/scissors.webp" alt="Scissors" class="option" onclick="selectElement('school_items5', 'Scissors')">
-                <!-- Add more school items if needed -->
-            </div>
-        </div>
-
-        <!-- Clothes 1 -->
-        <div class="lesson" id="clothes1" style="display: none;">
-            <h2>Clothes 1</h2>
-            <p class="selected-name" id="selected-name-clothes1"></p>
-            <div class="images-container">
-                <img src="images/shirt.webp" alt="Shirt" class="option" onclick="selectElement('clothes1', 'Shirt')">
-                <img src="images/pants.webp" alt="Pants" class="option" onclick="selectElement('clothes1', 'Pants')">
-                <img src="images/shoes.webp" alt="Shoes" class="option" onclick="selectElement('clothes1', 'Shoes')">
-                <img src="images/socks.webp" alt="Socks" class="option" onclick="selectElement('clothes1', 'Socks')">
-                <img src="images/hat.webp" alt="Hat" class="option" onclick="selectElement('clothes1', 'Hat')">
-            </div>
-        </div>
-
-        <!-- Clothes 2 -->
-        <div class="lesson" id="clothes2" style="display: none;">
-            <h2>Clothes 2</h2>
-            <p class="selected-name" id="selected-name-clothes2"></p>
-            <div class="images-container">
-                <img src="images/dress.webp" alt="Dress" class="option" onclick="selectElement('clothes2', 'Dress')">
-                <img src="images/jacket.webp" alt="Jacket" class="option" onclick="selectElement('clothes2', 'Jacket')">
-                <img src="images/sweater.webp" alt="Sweater" class="option" onclick="selectElement('clothes2', 'Sweater')">
-                <img src="images/skirt.webp" alt="Skirt" class="option" onclick="selectElement('clothes2', 'Skirt')">
-                <img src="images/coat.webp" alt="Coat" class="option" onclick="selectElement('clothes2', 'Coat')">
-            </div>
-        </div>
-
-        <!-- Kitchen Items 1 -->
-        <div class="lesson" id="kitchen_items1" style="display: none;">
-            <h2>Kitchen Items 1</h2>
-            <p class="selected-name" id="selected-name-kitchen_items1"></p>
-            <div class="images-container">
-                <img src="images/spoon.webp" alt="Spoon" class="option" onclick="selectElement('kitchen_items1', 'Spoon')">
-                <img src="images/fork.webp" alt="Fork" class="option" onclick="selectElement('kitchen_items1', 'Fork')">
-                <img src="images/plate.webp" alt="Plate" class="option" onclick="selectElement('kitchen_items1', 'Plate')">
-                <img src="images/cup.webp" alt="Cup" class="option" onclick="selectElement('kitchen_items1', 'Cup')">
-                <img src="images/bowl.webp" alt="Bowl" class="option" onclick="selectElement('kitchen_items1', 'Bowl')">
-            </div>
-        </div>
-
-        <!-- Kitchen Items 2 -->
-        <div class="lesson" id="kitchen_items2" style="display: none;">
-            <h2>Kitchen Items 2</h2>
-            <p class="selected-name" id="selected-name-kitchen_items2"></p>
-            <div class="images-container">
-                <img src="images/knife.webp" alt="Knife" class="option" onclick="selectElement('kitchen_items2', 'Knife')">
-                <img src="images/pot.webp" alt="Pot" class="option" onclick="selectElement('kitchen_items2', 'Pot')">
-                <img src="images/pan.webp" alt="Pan" class="option" onclick="selectElement('kitchen_items2', 'Pan')">
-                <img src="images/glass.webp" alt="Glass" class="option" onclick="selectElement('kitchen_items2', 'Glass')">
-                <img src="images/bottle.webp" alt="Bottle" class="option" onclick="selectElement('kitchen_items2', 'Bottle')">
-            </div>
-        </div>
-
-        <!-- Home Furniture 1 -->
-        <div class="lesson" id="home_furniture1" style="display: none;">
-            <h2>Home Furniture 1</h2>
-            <p class="selected-name" id="selected-name-home_furniture1"></p>
-            <div class="images-container">
-                <img src="images/bed.webp" alt="Bed" class="option" onclick="selectElement('home_furniture1', 'Bed')">
-                <img src="images/table.webp" alt="Table" class="option" onclick="selectElement('home_furniture1', 'Table')">
-                <img src="images/sofa.webp" alt="Sofa" class="option" onclick="selectElement('home_furniture1', 'Sofa')">
-                <img src="images/mirror.webp" alt="Mirror" class="option" onclick="selectElement('home_furniture1', 'Mirror')">
-                <img src="images/lamp.webp" alt="Lamp" class="option" onclick="selectElement('home_furniture1', 'Lamp')">
-            </div>
-        </div>
-
-        <!-- Home Furniture 2 -->
-        <div class="lesson" id="home_furniture2" style="display: none;">
-            <h2>Home Furniture 2</h2>
-            <p class="selected-name" id="selected-name-home_furniture2"></p>
-            <div class="images-container">
-                <img src="images/clock.webp" alt="Clock" class="option" onclick="selectElement('home_furniture2', 'Clock')">
-                <img src="images/door.webp" alt="Door" class="option" onclick="selectElement('home_furniture2', 'Door')">
-                <img src="images/wall.webp" alt="Wall" class="option" onclick="selectElement('home_furniture2', 'Wall')">
-                <img src="images/floor.webp" alt="Floor" class="option" onclick="selectElement('home_furniture2', 'Floor')">
-                <img src="images/window.webp" alt="Window" class="option" onclick="selectElement('home_furniture2', 'Window')">
-            </div>
-        </div>
-
-        <!-- Toys 1 -->
-        <div class="lesson" id="toys1" style="display: none;">
-            <h2>Toys 1</h2>
-            <p class="selected-name" id="selected-name-toys1"></p>
-            <div class="images-container">
-                <img src="images/toy_ball.webp" alt="Toy Ball" class="option" onclick="selectElement('toys1', 'Toy Ball')">
-                <img src="images/toy_doll.webp" alt="Toy Doll" class="option" onclick="selectElement('toys1', 'Toy Doll')">
-                <img src="images/toy_truck.webp" alt="Toy Truck" class="option" onclick="selectElement('toys1', 'Toy Truck')">
-                <img src="images/toy_robot.webp" alt="Toy Robot" class="option" onclick="selectElement('toys1', 'Toy Robot')">
-                <img src="images/toy_bike.webp" alt="Toy Bike" class="option" onclick="selectElement('toys1', 'Toy Bike')">
-            </div>
-        </div>
-
-        <!-- Toys 2 -->
-        <div class="lesson" id="toys2" style="display: none;">
-            <h2>Toys 2</h2>
-            <p class="selected-name" id="selected-name-toys2"></p>
-            <div class="images-container">
-                <img src="images/toy_kite.webp" alt="Toy Kite" class="option" onclick="selectElement('toys2', 'Toy Kite')">
-                <img src="images/toy_train.webp" alt="Toy Train" class="option" onclick="selectElement('toys2', 'Toy Train')">
-                <img src="images/block.webp" alt="Block" class="option" onclick="selectElement('toys2', 'Block')">
-                <img src="images/teddy.webp" alt="Teddy" class="option" onclick="selectElement('toys2', 'Teddy')">
-            </div>
-        </div>
-
-        <!-- Nature 1 -->
-        <div class="lesson" id="nature1" style="display: none;">
-            <h2>Nature 1</h2>
-            <p class="selected-name" id="selected-name-nature1"></p>
-            <div class="images-container">
-                <img src="images/sky.webp" alt="Sky" class="option" onclick="selectElement('nature1', 'Sky')">
-                <img src="images/cloud.webp" alt="Cloud" class="option" onclick="selectElement('nature1', 'Cloud')">
-                <img src="images/grass.webp" alt="Grass" class="option" onclick="selectElement('nature1', 'Grass')">
-                <img src="images/star.webp" alt="Star" class="option" onclick="selectElement('nature1', 'Star')">
-                <img src="images/rain.webp" alt="Rain" class="option" onclick="selectElement('nature1', 'Rain')">
-            </div>
-        </div>
-
-        <!-- Nature 2 -->
-        <div class="lesson" id="nature2" style="display: none;">
-            <h2>Nature 2</h2>
-            <p class="selected-name" id="selected-name-nature2"></p>
-            <div class="images-container">
-                <img src="images/snow.webp" alt="Snow" class="option" onclick="selectElement('nature2', 'Snow')">
-                <img src="images/flower.webp" alt="Flower" class="option" onclick="selectElement('nature2', 'Flower')">
-                <img src="images/tree.webp" alt="Tree" class="option" onclick="selectElement('nature2', 'Tree')">
-                <img src="images/sun.webp" alt="Sun" class="option" onclick="selectElement('nature2', 'Sun')">
-                <img src="images/moon.webp" alt="Moon" class="option" onclick="selectElement('nature2', 'Moon')">
-            </div>
-        </div>
-
     </div>
 
-</div>
+    <!-- JavaScript -->
+    <script>
+        /**
+         * Object to map numbers to their word equivalents.
+         */
+        const numberWords = {
+            '1': 'One',
+            '2': 'Two',
+            '3': 'Three',
+            '4': 'Four',
+            '5': 'Five',
+            '6': 'Six',
+            '7': 'Seven',
+            '8': 'Eight',
+            '9': 'Nine',
+            '10': 'Ten'
+        };
 
-<script>
-    /**
-     * Object to map numbers to their word equivalents.
-     */
-    const numberWords = {
-        '1': 'One',
-        '2': 'Two',
-        '3': 'Three',
-        '4': 'Four',
-        '5': 'Five',
-        '6': 'Six',
-        '7': 'Seven',
-        '8': 'Eight',
-        '9': 'Nine',
-        '10': 'Ten'
-    };
-
-    /**
-     * Function to speak text using Web Speech API.
-     * @param {string} text - The text to speak.
-     */
-    function speak(text) {
-        if ('speechSynthesis' in window) {
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 1; // Adjust as needed
-            utterance.pitch = 1; // Adjust as needed
-            speechSynthesis.speak(utterance);
-        } else {
-            console.warn('Speech Synthesis not supported in this browser.');
-        }
-    }
-
-    /**
-     * Function to handle element selection.
-     * It speaks the text and displays the selected name in green.
-     * @param {string} lesson - The lesson ID.
-     * @param {string} name - The name or number of the selected element.
-     */
-    function selectElement(lesson, name) {
-        console.log(`Lesson: ${lesson}, Selected Element: ${name}`);
-
-        let displayName = name;
-
-        // If the lesson is 'numbers', map the numeral to its word equivalent
-        if (lesson === 'numbers') {
-            displayName = numberWords[name] || name;
-        }
-
-        speak(displayName);
-
-        const lessonDiv = document.getElementById(lesson);
-        if (lessonDiv) {
-            const selectedNameElement = lessonDiv.querySelector('.selected-name');
-            if (selectedNameElement) {
-                selectedNameElement.textContent = displayName;
-                selectedNameElement.style.color = "green";
-                selectedNameElement.style.fontSize = "1.5em";
-                selectedNameElement.style.marginTop = "10px";
-            }
-        }
-    }
-
-    /**
-     * Function to select and display a lesson.
-     * @param {string} lesson - The lesson ID.
-     */
-    function selectLesson(lesson) {
-        console.log('Selecting lesson:', lesson);
-
-        // Hide all lessons
-        const lessons = document.querySelectorAll('.lesson');
-        lessons.forEach(l => {
-            l.style.display = "none";
-        });
-
-        // Show the selected lesson
-        const selectedLesson = document.getElementById(lesson);
-        if (selectedLesson) {
-            selectedLesson.style.display = "block";
-            console.log('Lesson found:', lesson);
-        } else {
-            console.error('Lesson not found:', lesson);
-        }
-
-        // Update active state in both navigations
-        const buttons = document.querySelectorAll('.lesson-button');
-        buttons.forEach(button => {
-            const buttonLessonId = button.getAttribute('data-lesson-id');
-            if (buttonLessonId === lesson) {
-                button.classList.add('active');
+        /**
+         * Function to speak text using Web Speech API.
+         * @param {string} text - The text to speak.
+         */
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 1; // Adjust as needed
+                utterance.pitch = 1; // Adjust as needed
+                speechSynthesis.speak(utterance);
             } else {
+                console.warn('Speech Synthesis not supported in this browser.');
+            }
+        }
+
+        /**
+         * Function to handle element selection.
+         * It speaks the text and displays the selected name in green.
+         * @param {string} lesson - The lesson ID.
+         * @param {string} name - The name or number of the selected element.
+         */
+        function selectElement(lesson, name) {
+            console.log(`Lesson: ${lesson}, Selected Element: ${name}`);
+
+            let displayName = name;
+
+            // If the lesson is 'numbers', map the numeral to its word equivalent
+            if (lesson === 'numbers') {
+                displayName = numberWords[name] || name;
+            }
+
+            speak(displayName);
+
+            const lessonDiv = document.getElementById(lesson);
+            if (lessonDiv) {
+                const selectedNameElement = lessonDiv.querySelector('.selected-name');
+                if (selectedNameElement) {
+                    selectedNameElement.textContent = displayName;
+                    selectedNameElement.style.color = "green";
+                    selectedNameElement.style.fontSize = "1.5em";
+                    selectedNameElement.style.marginTop = "10px";
+                }
+            }
+        }
+
+        /**
+         * Function to select and display a lesson.
+         * @param {string} lesson - The lesson ID.
+         */
+        function selectLesson(lesson) {
+            console.log('Selecting lesson:', lesson);
+
+            // Hide all lessons
+            const lessons = document.querySelectorAll('.lesson');
+            lessons.forEach(l => {
+                l.style.display = "none";
+            });
+
+            // Hide the game-container
+            const gameContainer = document.getElementById('game-container');
+            if (gameContainer) {
+                gameContainer.style.display = 'none';
+                gameContainer.innerHTML = ''; // Optional: clear previous game content
+            }
+
+            // Show the quiz-container
+            const quizContainer = document.getElementById('quiz-container');
+            if (quizContainer) {
+                quizContainer.style.display = 'block';
+            }
+
+            // Show the selected lesson
+            const selectedLesson = document.getElementById(lesson);
+            if (selectedLesson) {
+                selectedLesson.style.display = "block";
+                console.log('Lesson found:', lesson);
+            } else {
+                console.error('Lesson not found:', lesson);
+                // Optionally, default to 'animals' if lesson not found
+                selectLesson('animals');
+                return;
+            }
+
+            // Update active state in navigation
+            const lessonButtons = document.querySelectorAll('.lesson-button');
+            lessonButtons.forEach(button => {
+                const buttonText = button.textContent.trim();
+                if (selectedLesson && buttonText === selectedLesson.querySelector('h2').textContent.trim()) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+
+            // Remove active state from game buttons
+            const gameButtons = document.querySelectorAll('.game-button');
+            gameButtons.forEach(button => {
                 button.classList.remove('active');
-            }
-        });
+            });
 
-        // Clear any previous selected name
-        const selectedNameElements = document.querySelectorAll('.selected-name');
-        selectedNameElements.forEach(elem => {
-            elem.textContent = '';
-        });
+            // Clear any previous selected name
+            const selectedNameElements = document.querySelectorAll('.selected-name');
+            selectedNameElements.forEach(elem => {
+                elem.textContent = '';
+            });
 
-        // If sidebar is open on mobile, close it after selection
-        if (window.innerWidth <= 768) {
-            toggleSidebar(false);
-        }
-    }
-
-    /**
-     * Function to toggle the sidebar on mobile devices.
-     * @param {boolean} [forceState] - Optional parameter to force open or close.
-     */
-    function toggleSidebar(forceState) {
-        const sidebar = document.getElementById('sidebar');
-        const hamburger = document.querySelector('.hamburger');
-
-        if (forceState === true) {
-            sidebar.classList.add('active');
-            hamburger.classList.add('active');
-        } else if (forceState === false) {
-            sidebar.classList.remove('active');
-            hamburger.classList.remove('active');
-        } else {
-            sidebar.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        }
-    }
-
-    /**
-     * Function to close the sidebar when clicking outside of it on mobile.
-     */
-    function closeSidebarOnClickOutside(event) {
-        const sidebar = document.getElementById('sidebar');
-        const hamburger = document.querySelector('.hamburger');
-
-        if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
-            if (!sidebar.contains(event.target) && !hamburger.contains(event.target)) {
-                sidebar.classList.remove('active');
-                hamburger.classList.remove('active');
+            // Close the navbar menu on mobile after selection
+            const navbarMenu = document.getElementById('navbar-menu');
+            if (navbarMenu.classList.contains('active')) {
+                toggleNavbarMenu();
             }
         }
-    }
 
-    // Initialize the application by selecting the first lesson on page load
-    document.addEventListener("DOMContentLoaded", function() {
-        selectLesson('animals'); // Automatically select 'Animals' on page load
-        document.addEventListener('click', closeSidebarOnClickOutside);
-    });
+        /**
+         * Function to select and display a game.
+         * @param {string} gameUrl - The URL of the game HTML file.
+         */
+        function selectGame(gameUrl) {
+            console.log('Selecting game:', gameUrl);
 
-    // Handle window resize to ensure sidebar state is appropriate
-    window.addEventListener('resize', function() {
-        const sidebar = document.getElementById('sidebar');
-        const hamburger = document.querySelector('.hamburger');
+            // Hide all lessons
+            const lessons = document.querySelectorAll('.lesson');
+            lessons.forEach(l => {
+                l.style.display = "none";
+            });
 
-        if (window.innerWidth > 768) {
-            sidebar.classList.remove('active');
-            hamburger.classList.remove('active');
+            // Hide the quiz-container
+            const quizContainer = document.getElementById('quiz-container');
+            if (quizContainer) {
+                quizContainer.style.display = 'none';
+            }
+
+            // Show the game-container
+            const gameContainer = document.getElementById('game-container');
+            if (gameContainer) {
+                gameContainer.style.display = 'block';
+                // Load the game content into the gameContainer
+                fetch(gameUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok ' + response.statusText);
+                        }
+                        return response.text();
+                    })
+                    .then(htmlContent => {
+                        gameContainer.innerHTML = htmlContent;
+                    })
+                    .catch(error => {
+                        console.error('There was a problem loading the game content:', error);
+                        gameContainer.innerHTML = '<p>Error loading game content.</p>';
+                    });
+            }
+
+            // Update active state in navigation
+            const gameButtons = document.querySelectorAll('.game-button');
+            gameButtons.forEach(button => {
+                if (button.getAttribute('onclick').includes(gameUrl)) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+
+            // Remove active state from lesson buttons
+            const lessonButtons = document.querySelectorAll('.lesson-button');
+            lessonButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Hide any previous selected names
+            const selectedNameElements = document.querySelectorAll('.selected-name');
+            selectedNameElements.forEach(elem => {
+                elem.textContent = '';
+            });
+
+            // Close the navbar menu on mobile after selection
+            const navbarMenu = document.getElementById('navbar-menu');
+            if (navbarMenu.classList.contains('active')) {
+                toggleNavbarMenu();
+            }
         }
-    });
 
-    /**
-     * Function to toggle the mobile dropdown menu.
-     */
-    function toggleDropdown() {
-        const dropdown = document.getElementById('dropdown-menu');
-        dropdown.classList.toggle('active');
-    }
-
-    // Ensure dropdown closes when clicking outside
-    document.addEventListener('click', function(event) {
-        const dropdown = document.getElementById('dropdown-menu');
-        const button = document.querySelector('.mobile-nav-button');
-        if (!dropdown.contains(event.target) && !button.contains(event.target)) {
-            dropdown.classList.remove('active');
+        /**
+         * Function to toggle the navbar menu on mobile.
+         */
+        function toggleNavbarMenu() {
+            const navbarMenu = document.getElementById('navbar-menu');
+            const navbarToggle = document.getElementById('navbar-toggle');
+            navbarMenu.classList.toggle('active');
+            navbarToggle.classList.toggle('active');
         }
-    });
-</script>
+
+        /**
+         * Initialize behavior on page load based on URL hash.
+         */
+        function initializeLessonFromHash() {
+            const hash = window.location.hash.substring(1); // Remove '#'
+            if (hash) {
+                selectLesson(hash);
+            } else {
+                selectLesson('animals'); // Default lesson
+            }
+        }
+
+        /**
+         * Initialize default behavior on page load.
+         */
+        document.addEventListener("DOMContentLoaded", function () {
+            initializeLessonFromHash();
+        });
+
+        /**
+         * Listen for hash changes to update the lesson dynamically.
+         */
+        window.addEventListener("hashchange", function () {
+            initializeLessonFromHash();
+        });
+
+        /**
+         * Event listener for navbar toggle (hamburger icon).
+         */
+        document.getElementById('navbar-toggle').addEventListener('click', toggleNavbarMenu);
+
+        /**
+         * Close the navbar menu when clicking outside of it (optional).
+         */
+        window.addEventListener('click', function(event) {
+            const navbarMenu = document.getElementById('navbar-menu');
+            const navbarToggle = document.getElementById('navbar-toggle');
+            if (!navbarMenu.contains(event.target) && !navbarToggle.contains(event.target)) {
+                if (navbarMenu.classList.contains('active')) {
+                    toggleNavbarMenu();
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>
