@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learn and Play - Games</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link to gamesstyles.css -->
+    <link rel="stylesheet" href="gamesstyles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-brand">Learn and Play</div>
+        <div class="navbar-toggle" id="navbar-toggle">
+            &#9776; <!-- Hamburger Icon -->
+        </div>
+        <ul class="navbar-menu" id="navbar-menu">
+            <li class="navbar-item">
+                <a href="pre-intro.html" class="navbar-link">Home</a>
+            </li>
+            <li class="navbar-item">
+                <a href="index.html" class="navbar-link">Lessons</a>
+            </li>
+            <li class="navbar-item">
+                <a href="games.html" class="navbar-link">Games</a>
+            </li>
+            <li class="navbar-item">
+                <a href="quiz.html" class="navbar-link">Quiz</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="games-content">
+            <div class="games-grid">
+                <!-- Game 1 -->
+                <div class="game-card" onclick="window.location.href='game1.html'">
+                    <h2>Word Match Quest</h2>
+                    <div class="game-thumbnail">
+                        <img src="images/game1_thumbnail.jpg" alt="Word Match Quest">
+                    </div>
+                </div>
+                <!-- Game 2 -->
+                <div class="game-card" onclick="window.location.href='game2.html'">
+                    <h2>Word Adventure</h2>
+                    <div class="game-thumbnail">
+                        <img src="images/game2_thumbnail.jpg" alt="Word Adventure">
+                    </div>
+                </div>
+                <!-- Game 3 -->
+                <div class="game-card" onclick="window.location.href='game3.html'">
+                    <h2>Word Scramble</h2>
+                    <div class="game-thumbnail">
+                        <img src="images/game3_thumbnail.jpg" alt="Word Scramble">
+                    </div>
+                </div>
+                <!-- Game 4 -->
+                <div class="game-card" onclick="window.location.href='game4.html'">
+                    <h2>Rhyme Time Race</h2>
+                    <div class="game-thumbnail">
+                        <img src="images/game4_thumbnail.jpg" alt="Rhyme Time Race">
+                    </div>
+                </div>
+                <!-- Game 5 -->
+                <div class="game-card" onclick="window.location.href='game5.html'">
+                    <h2>Word Balloon Pop!</h2>
+                    <div class="game-thumbnail">
+                        <img src="images/game5_thumbnail.jpg" alt="Word Balloon Pop!">
+                    </div>
+                </div>
+                <!-- Game 6 -->
+                <div class="game-card" onclick="window.location.href='game6.html'">
+                    <h2>Learn English with Pictures!</h2>
+                    <div class="game-thumbnail">
+                        <img src="images/game6_thumbnail.jpg" alt="Learn English with Pictures!">
+                    </div>
+                </div>
+                <!-- Game 7 -->
+                <div class="game-card" onclick="window.location.href='game7.html'">
+                    <h2>Guess the Picture!</h2>
+                    <div class="game-thumbnail">
+                        <img src="images/game7_thumbnail.jpg" alt="Guess the Picture!">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Navbar Toggle -->
+    <script>
+        /**
+         * Function to toggle the navbar menu on mobile.
+         */
+        function toggleNavbarMenu() {
+            const navbarMenu = document.getElementById('navbar-menu');
+            const navbarToggle = document.getElementById('navbar-toggle');
+            navbarMenu.classList.toggle('active');
+            navbarToggle.classList.toggle('active');
+        }
+
+        // Event listener for navbar toggle (hamburger icon).
+        document.getElementById('navbar-toggle').addEventListener('click', toggleNavbarMenu);
+
+        // Close the navbar menu when clicking outside of it (optional).
+        window.addEventListener('click', function(event) {
+            const navbarMenu = document.getElementById('navbar-menu');
+            const navbarToggle = document.getElementById('navbar-toggle');
+            if (!navbarMenu.contains(event.target) && !navbarToggle.contains(event.target)) {
+                if (navbarMenu.classList.contains('active')) {
+                    toggleNavbarMenu();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

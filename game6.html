@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn English with Pictures</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React and ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Custom Styles (Optional) -->
+    <!-- If you want to include any custom styles, you can link them here -->
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-xl font-bold">Learn and Play</a>
+                </div>
+                <!-- Hamburger Menu (Mobile) -->
+                <div class="flex lg:hidden">
+                    <button id="navbar-toggle" class="text-gray-300 hover:text-white focus:outline-none focus:text-white">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+                <!-- Menu -->
+                <div class="hidden lg:block">
+                    <ul class="flex space-x-4">
+                        <li><a href="intro.html" class="hover:bg-gray-700 px-3 py-2 rounded-md">Lessons</a></li>
+                        <li class="relative group">
+                            <button class="flex items-center hover:bg-gray-700 px-3 py-2 rounded-md">
+                                Games
+                                <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <!-- Dropdown Menu -->
+                            <ul class="absolute left-0 mt-2 w-40 bg-gray-700 rounded-md shadow-lg hidden group-hover:block">
+                                <li><a href="game1.html" class="block px-4 py-2 hover:bg-gray-600">Game 1</a></li>
+                                <li><a href="game2.html" class="block px-4 py-2 hover:bg-gray-600">Game 2</a></li>
+                                <li><a href="game3.html" class="block px-4 py-2 hover:bg-gray-600">Game 3</a></li>
+                                <li><a href="game4.html" class="block px-4 py-2 hover:bg-gray-600">Game 4</a></li>
+                                <li><a href="game5.html" class="block px-4 py-2 hover:bg-gray-600">Game 5</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="navbar-menu" class="lg:hidden hidden bg-gray-800">
+            <ul class="px-2 pt-2 pb-3 space-y-1">
+                <li><a href="intro.html" class="block px-3 py-2 rounded-md hover:bg-gray-700">Lessons</a></li>
+                <li class="relative">
+                    <button class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 flex items-center justify-between">
+                        Games
+                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <ul class="mt-1 space-y-1 pl-4">
+                        <li><a href="game1.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 1</a></li>
+                        <li><a href="game2.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 2</a></li>
+                        <li><a href="game3.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 3</a></li>
+                        <li><a href="game4.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 4</a></li>
+                        <li><a href="game5.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 5</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Game Container -->
+    <div id="root" class="p-4 sm:p-8"></div>
+
+    <!-- JavaScript for Navbar Toggle -->
+    <script>
+        /**
+         * Function to toggle the mobile navbar menu.
+         */
+        function toggleNavbarMenu() {
+            const navbarMenu = document.getElementById('navbar-menu');
+            navbarMenu.classList.toggle('hidden');
+        }
+
+        /**
+         * Event listener for the navbar toggle button.
+         */
+        document.getElementById('navbar-toggle').addEventListener('click', toggleNavbarMenu);
+    </script>
+
+    <!-- Game Script -->
+    <script type="text/babel">
+        // Icon components
+        const StarIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                <polygon points="12 17.27 18.18 21 15.89 13.47 21.64 8.63 13.81 8.13 12 1 10.19 8.13 2.36 8.63 8.11 13.47 5.82 21 12 17.27" />
+            </svg>
+        );
+
+        const SmileIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-16 h-16 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
+                         10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8
+                         s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-4-6
+                         c0 2.21 3.58 3 4 3s4-.79 4-3H8zm-1-3
+                         c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2
+                         .9 2 2 2zm10 0c1.1 0 2-.9 2-2
+                         s-.9-2-2-2-2 .9-2 2 .9 2 2 2z" />
+            </svg>
+        );
+
+        // Main Game Component
+        const EnglishLearningGame = () => {
+            const [currentCategory, setCurrentCategory] = React.useState(null);
+            const [score, setScore] = React.useState(0);
+            const [currentWord, setCurrentWord] = React.useState(null);
+            const [correctAnswers, setCorrectAnswers] = React.useState([]);
+            const [showSuccess, setShowSuccess] = React.useState(false);
+
+            const categories = {
+                animals: ['cat', 'dog', 'lion', 'elephant', 'monkey', 'panda', 'rabbit', 'bird', 'fish', 'penguin'],
+                food: ['apple', 'banana', 'orange', 'cookie', 'cake', 'bread', 'carrot', 'tomato', 'corn', 'broccoli'],
+                toys: ['toy_car', 'toy_robot', 'toy_train', 'toy_ball', 'toy_bike', 'toy_doll', 'toy_truck', 'toy_block', 'toy_kite', 'teddy_bear'],
+                clothes: ['shirt', 'pants', 'dress', 'shoes', 'hat', 'coat', 'jacket', 'sweater', 'socks', 'skirt']
+            };
+
+            const selectCategory = (category) => {
+                setCurrentCategory(category);
+                pickNewWord(category);
+                setCorrectAnswers([]);
+                setScore(0);
+                setShowSuccess(false);
+            };
+
+            const pickNewWord = (category) => {
+                const availableWords = categories[category].filter(word => !correctAnswers.includes(word));
+                if (availableWords.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * availableWords.length);
+                    setCurrentWord(availableWords[randomIndex]);
+                } else {
+                    setShowSuccess(true);
+                }
+            };
+
+            const handleWordClick = (selectedWord) => {
+                if (selectedWord === currentWord) {
+                    setScore(score + 1);
+                    setCorrectAnswers([...correctAnswers, currentWord]);
+                    pickNewWord(currentCategory);
+                }
+            };
+
+            const GameCard = ({ word, isActive, onClick, isCorrect }) => (
+                <div 
+                    className={`p-4 border rounded-lg cursor-pointer transition-all transform hover:scale-105 
+                        ${isActive ? 'border-blue-500 shadow-lg' : 'border-gray-200'} 
+                        ${isCorrect ? 'bg-green-100' : 'bg-white'}`}
+                    onClick={onClick}
+                >
+                    {word.replace(/_/g, ' ')}
+                </div>
+            );
+
+            const renderCategorySelection = () => (
+                <div className="space-y-4">
+                    <h2 className="text-2xl font-bold mb-4 text-center">Choose a Category</h2>
+                    <div className="grid grid-cols-2 gap-4">
+                        {Object.keys(categories).map((category) => (
+                            <button
+                                key={category}
+                                onClick={() => selectCategory(category)}
+                                className="p-6 text-lg capitalize bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                            >
+                                {category}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            );
+
+            const renderGame = () => (
+                <div className="space-y-4">
+                    <div className="flex justify-between items-center mb-4">
+                        <button 
+                            onClick={() => setCurrentCategory(null)}
+                            className="text-blue-500 hover:text-blue-700"
+                        >
+                            &larr; Back to Categories
+                        </button>
+                        <div className="flex items-center gap-2">
+                            <StarIcon />
+                            <span className="text-xl font-bold">{score}</span>
+                        </div>
+                    </div>
+
+                    <div className="mb-8">
+                        <img 
+                            src={`images/${currentWord}.webp`} 
+                            alt={currentWord.replace(/_/g, ' ')}
+                            className="w-64 h-64 mx-auto object-contain rounded-lg shadow-lg"
+                        />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        {categories[currentCategory].map((word) => (
+                            <GameCard
+                                key={word}
+                                word={word}
+                                isActive={word === currentWord}
+                                isCorrect={correctAnswers.includes(word)}
+                                onClick={() => handleWordClick(word)}
+                            />
+                        ))}
+                    </div>
+                </div>
+            );
+
+            const renderSuccess = () => (
+                <div className="text-center space-y-4">
+                    <div className="flex justify-center mb-4">
+                        <SmileIcon />
+                    </div>
+                    <h2 className="text-2xl font-bold">Fantastic Job!</h2>
+                    <p className="text-lg">You've learned all the words in this category!</p>
+                    <button 
+                        onClick={() => setCurrentCategory(null)}
+                        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                    >
+                        Try Another Category
+                    </button>
+                </div>
+            );
+
+            return (
+                <div className="w-full max-w-2xl mx-auto bg-white rounded-xl shadow-md p-6">
+                    <h1 className="text-3xl font-bold text-center mb-8">Learn English with Pictures!</h1>
+                    {!currentCategory && renderCategorySelection()}
+                    {currentCategory && !showSuccess && renderGame()}
+                    {showSuccess && renderSuccess()}
+                </div>
+            );
+        };
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<EnglishLearningGame />);
+    </script>
+</body>
+</html>

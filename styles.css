@@ -346,5 +346,142 @@ body {
 /* =====================================================
    Intro Page Specific Styles
    ===================================================== */
+/* =====================================================
+   Pre-Intro Overlay Styles
+   ===================================================== */
 
-   
+/* Pre-Intro Overlay */
+.pre-intro-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(44, 62, 80, 0.9); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    display: none; /* Hidden by default */
+}
+
+.pre-intro-content {
+    position: relative;
+    background-color: #ecf0f1;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    width: 90%;
+    max-width: 800px;
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: #2c3e50;
+    cursor: pointer;
+}
+
+.categories {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.category {
+    padding: 20px;
+    border: 2px solid #2c3e50;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    background-color: #fff;
+    max-width: 100%; /* Ensure it doesn't exceed the parent width */
+    box-sizing: border-box;
+}
+ background-color: #fff;
+}
+
+.category:hover {
+    transform: scale(1.05);
+    background-color: #bdc3c7;
+}
+
+.category h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+/* Default styles (for screens wider than 768px) */
+.cards {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.cards img {
+    position: absolute;
+    width: 100px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 2px solid #2c3e50;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+}
+
+.cards img:nth-child(1) { left: 100px; transform: rotate(-20deg); }
+.cards img:nth-child(2) { left: 110px; transform: rotate(-10deg); }
+.cards img:nth-child(3) { left: 120px; transform: rotate(0deg); }
+.cards img:nth-child(4) { left: 130px; transform: rotate(10deg); }
+.cards img:nth-child(5) { left: 140px; transform: rotate(20deg); }
+
+/* Styles for screens less than or equal to 768px */
+@media (max-width: 768px) {
+    .cards {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 0 auto;
+    }
+
+    .cards img {
+        position: static;
+        width: 80px;
+        height: auto;
+        transform: none;
+        margin: 5px;
+    }
+}
+
+/* Styles for screens less than or equal to 480px */
+@media (max-width: 480px) {
+    .cards img {
+        width: 60px;
+    }
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: #2c3e50;
+    cursor: pointer;
+    z-index: 1001; /* Ensure it stays above other elements */
+}
+
+@media (max-width: 480px) {
+    .close-button {
+        font-size: 1.5em;
+        top: 5px;
+        right: 5px;
+    }
+}

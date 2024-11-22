@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Adventure Game</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React and ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Custom Styles (Optional) -->
+    <!-- If you want to include any custom styles, you can link them here -->
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-xl font-bold">Learn and Play</a>
+                </div>
+                <!-- Hamburger Menu (Mobile) -->
+                <div class="flex lg:hidden">
+                    <button id="navbar-toggle" class="text-gray-300 hover:text-white focus:outline-none focus:text-white">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+                <!-- Menu -->
+                <div class="hidden lg:block">
+                    <ul class="flex space-x-4">
+                        <li><a href="intro.html" class="hover:bg-gray-700 px-3 py-2 rounded-md">Lessons</a></li>
+                        <li class="relative group">
+                            <button class="flex items-center hover:bg-gray-700 px-3 py-2 rounded-md">
+                                Games
+                                <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <!-- Dropdown Menu -->
+                            <ul class="absolute left-0 mt-2 w-40 bg-gray-700 rounded-md shadow-lg hidden group-hover:block">
+                                <li><a href="game1.html" class="block px-4 py-2 hover:bg-gray-600">Game 1</a></li>
+                                <li><a href="game2.html" class="block px-4 py-2 hover:bg-gray-600">Game 2</a></li>
+                                <li><a href="game3.html" class="block px-4 py-2 hover:bg-gray-600">Game 3</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="navbar-menu" class="lg:hidden hidden bg-gray-800">
+            <ul class="px-2 pt-2 pb-3 space-y-1">
+                <li><a href="intro.html" class="block px-3 py-2 rounded-md hover:bg-gray-700">Lessons</a></li>
+                <li class="relative">
+                    <button class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 flex items-center justify-between">
+                        Games
+                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <ul class="mt-1 space-y-1 pl-4">
+                        <li><a href="game1.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 1</a></li>
+                        <li><a href="game2.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 2</a></li>
+                        <li><a href="game3.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 3</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Game Container -->
+    <div id="root" class="p-4 sm:p-8"></div>
+
+    <!-- JavaScript for Navbar Toggle -->
+    <script>
+        /**
+         * Function to toggle the mobile navbar menu.
+         */
+        function toggleNavbarMenu() {
+            const navbarMenu = document.getElementById('navbar-menu');
+            navbarMenu.classList.toggle('hidden');
+        }
+
+        /**
+         * Event listener for the navbar toggle button.
+         */
+        document.getElementById('navbar-toggle').addEventListener('click', toggleNavbarMenu);
+    </script>
+
+    <!-- Game Script -->
+    <script type="text/babel">
+        // Icon components
+        const HeartIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+                   2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09
+                   C13.09 4.01 14.76 3 16.5 3
+                   19.58 3 22 5.42 22 8.5
+                   c0 3.78-3.4 6.86-8.55 11.54
+                   L12 21.35z" />
+            </svg>
+        );
+
+        const StarIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                <polygon points="12 17.27 18.18 21 15.89 13.47 21.64 8.63 13.81 8.13 12 1 10.19 8.13 2.36 8.63 8.11 13.47 5.82 21 12 17.27" />
+            </svg>
+        );
+
+        const TrophyIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17 3h4v4c0 2.76-2.24 5-5 5h-1v2c0 1.85-1.28 3.42-3 3.86V21h6v2H5v-2h6v-3.14
+                    c-1.72-.44-3-2.01-3-3.86v-2H7c-2.76 0-5-2.24-5-5V3h4
+                    v4c0 .55.45 1 1 1h2V3h6v5h2c.55 0 1-.45 1-1V3z" />
+            </svg>
+        );
+
+        const ArrowUpIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.59 5.58L20 12l-8-8-8 8z" />
+            </svg>
+        );
+
+        const ArrowDownIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 16.17l5.59-5.58L19 12l-7 7-7-7 1.41-1.41L12 16.17z" />
+            </svg>
+        );
+
+        const ArrowLeftIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M7.83 12l5.58 5.59L12 19l-7-7 7-7 1.41 1.41L7.83 12z" />
+            </svg>
+        );
+
+        const ArrowRightIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16.17 12l-5.58-5.59L12 5l7 7-7 7-1.41-1.41L16.17 12z" />
+            </svg>
+        );
+
+        // Main Game Component
+        const WordAdventure = () => {
+            const [position, setPosition] = React.useState({ x: 0, y: 0 });
+            const [score, setScore] = React.useState(0);
+            const [lives, setLives] = React.useState(3);
+            const [words, setWords] = React.useState([]);
+            const [gameOver, setGameOver] = React.useState(false);
+            const [level, setLevel] = React.useState(1);
+            const [category, setCategory] = React.useState('');
+            const [message, setMessage] = React.useState('');
+            const [gridSize, setGridSize] = React.useState(4);
+
+            const categories = {
+                animals: {
+                    correct: ['cat', 'dog', 'bird', 'fish', 'lion', 'tiger', 'bear', 'wolf', 'duck', 'frog'],
+                    wrong: ['car', 'hat', 'pen', 'book', 'desk', 'lamp']
+                },
+                colors: {
+                    correct: ['red', 'blue', 'green', 'yellow', 'pink', 'purple', 'orange', 'brown', 'gray', 'white'],
+                    wrong: ['run', 'jump', 'eat', 'sleep', 'walk', 'talk']
+                },
+                actions: {
+                    correct: ['run', 'jump', 'walk', 'dance', 'sing', 'swim', 'fly', 'read', 'write', 'play'],
+                    wrong: ['desk', 'wall', 'door', 'cup', 'phone', 'clock']
+                },
+                food: {
+                    correct: ['pizza', 'apple', 'cake', 'bread', 'rice', 'pasta', 'fish', 'meat', 'salad', 'soup'],
+                    wrong: ['book', 'pen', 'car', 'house', 'shoe', 'hat']
+                }
+            };
+
+            const getLevelConfig = (level) => {
+                return {
+                    1: { gridSize: 4, correctWords: 3, wrongWords: 2 },
+                    2: { gridSize: 5, correctWords: 4, wrongWords: 3 },
+                    3: { gridSize: 6, correctWords: 5, wrongWords: 3 },
+                    4: { gridSize: 6, correctWords: 6, wrongWords: 4 },
+                    5: { gridSize: 7, correctWords: 7, wrongWords: 4 }
+                }[level] || { gridSize: 7, correctWords: 7, wrongWords: 5 };
+            };
+
+            const cellSize = 70; // Slightly smaller cells to fit larger grid
+
+            React.useEffect(() => {
+                startLevel();
+            }, [level]);
+
+            const startLevel = () => {
+                const levelConfig = getLevelConfig(level);
+                setGridSize(levelConfig.gridSize);
+                
+                const categoryNames = Object.keys(categories);
+                const newCategory = categoryNames[Math.floor(Math.random() * categoryNames.length)];
+                setCategory(newCategory);
+                
+                const newWords = [];
+                const currentCategory = categories[newCategory];
+                const usedPositions = new Set();
+                
+                const getRandomPosition = () => {
+                    let x, y;
+                    do {
+                        x = Math.floor(Math.random() * levelConfig.gridSize);
+                        y = Math.floor(Math.random() * levelConfig.gridSize);
+                    } while (usedPositions.has(`${x},${y}`));
+                    usedPositions.add(`${x},${y}`);
+                    return { x, y };
+                };
+                
+                // Add correct words
+                currentCategory.correct
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, levelConfig.correctWords)
+                    .forEach(word => {
+                        const pos = getRandomPosition();
+                        newWords.push({
+                            word,
+                            x: pos.x,
+                            y: pos.y,
+                            correct: true
+                        });
+                    });
+                
+                // Add wrong words
+                currentCategory.wrong
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, levelConfig.wrongWords)
+                    .forEach(word => {
+                        const pos = getRandomPosition();
+                        newWords.push({
+                            word,
+                            x: pos.x,
+                            y: pos.y,
+                            correct: false
+                        });
+                    });
+                
+                setWords(newWords);
+                setPosition({ x: 0, y: 0 });
+                setMessage('');
+            };
+
+            const movePlayer = (direction) => {
+                if (gameOver) return;
+
+                const moves = {
+                    up: { x: 0, y: -1 },
+                    down: { x: 0, y: 1 },
+                    left: { x: -1, y: 0 },
+                    right: { x: 1, y: 0 }
+                };
+
+                const move = moves[direction];
+                const newPos = {
+                    x: Math.max(0, Math.min(gridSize - 1, position.x + move.x)),
+                    y: Math.max(0, Math.min(gridSize - 1, position.y + move.y))
+                };
+
+                setPosition(newPos);
+                checkCollision(newPos);
+            };
+
+            const checkCollision = (pos) => {
+                const collidedWord = words.find(word => word.x === pos.x && word.y === pos.y);
+
+                if (collidedWord) {
+                    if (collidedWord.correct) {
+                        setScore(prevScore => prevScore + (level * 10)); // Higher scores for higher levels
+                        setMessage('Correct! 🌟 +' + (level * 10) + ' points');
+                        setWords(words.filter(w => w !== collidedWord));
+
+                        const remainingCorrectWords = words.filter(w => w.correct && w !== collidedWord).length;
+                        if (remainingCorrectWords === 0) {
+                            setMessage('Level Complete! 🎉');
+                            setTimeout(() => {
+                                setLevel(prev => prev + 1);
+                            }, 1000);
+                        }
+                    } else {
+                        setLives(prev => prev - 1);
+                        setScore(prevScore => Math.max(0, prevScore - 15)); // Subtract points but don't go below 0
+                        setMessage('Oops! Wrong word! ❌ -15 points');
+                        if (lives <= 1) {
+                            setGameOver(true);
+                        }
+                    }
+                } else {
+                    setMessage('');
+                }
+            };
+
+            const restartGame = () => {
+                setScore(0);
+                setLives(3);
+                setLevel(1);
+                setGameOver(false);
+                startLevel();
+            };
+
+            return (
+                <div className="p-6 max-w-4xl mx-auto">
+                    <div className="text-center mb-6">
+                        <h2 className="text-2xl font-bold mb-2">Word Adventure</h2>
+                        <p className="text-lg">Level {level}: Collect all the {category} words!</p>
+                        <div className="flex justify-center items-center gap-4 mt-2">
+                            <div className="flex items-center gap-1">
+                                <StarIcon />
+                                <span className="text-lg">Score: {score}</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <TrophyIcon />
+                                <span className="text-lg">Level: {level}</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                                {[...Array(lives)].map((_, i) => (
+                                    <HeartIcon key={i} />
+                                ))}
+                            </div>
+                        </div>
+                        {message && (
+                            <div className={`mt-2 text-lg animate-bounce ${message.includes('Oops') ? 'text-red-500' : 'text-green-500'}`}>
+                                {message}
+                            </div>
+                        )}
+                    </div>
+
+                    {gameOver ? (
+                        <div className="text-center">
+                            <h3 className="text-2xl font-bold mb-4">Game Over!</h3>
+                            <p className="text-xl mb-2">Final Score: {score}</p>
+                            <p className="text-lg mb-4">You reached Level {level}</p>
+                            <button onClick={restartGame} className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                                Play Again
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center">
+                            <div className="relative mx-auto mb-4"
+                                 style={{
+                                     width: `${gridSize * cellSize}px`,
+                                     height: `${gridSize * cellSize}px`
+                                 }}>
+                                {/* Game grid */}
+                                <div className={`absolute inset-0 grid gap-1 bg-blue-100 p-1 rounded-lg`}
+                                     style={{
+                                         gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
+                                         gridTemplateRows: `repeat(${gridSize}, 1fr)`
+                                     }}>
+                                    {[...Array(gridSize * gridSize)].map((_, i) => (
+                                        <div key={i} className="bg-white rounded-md"></div>
+                                    ))}
+                                </div>
+
+                                {/* Words */}
+                                {words.map((word, i) => (
+                                    <div
+                                        key={i}
+                                        className={`absolute text-sm font-bold p-2 rounded-md 
+                                                   ${word.correct ? 'bg-green-100' : 'bg-red-100'}`}
+                                        style={{
+                                            left: `${word.x * cellSize}px`,
+                                            top: `${word.y * cellSize}px`,
+                                            width: `${cellSize}px`,
+                                            height: `${cellSize}px`,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center'
+                                        }}
+                                    >
+                                        {word.word}
+                                    </div>
+                                ))}
+
+                                {/* Player */}
+                                <div
+                                    className="absolute bg-blue-500 rounded-full transition-all duration-200 flex items-center justify-center"
+                                    style={{
+                                        left: `${position.x * cellSize}px`,
+                                        top: `${position.y * cellSize}px`,
+                                        width: `${cellSize}px`,
+                                        height: `${cellSize}px`
+                                    }}
+                                >
+                                    <div className="w-6 h-6 bg-yellow-300 rounded-full"></div>
+                                </div>
+                            </div>
+
+                            {/* Control buttons */}
+                            <div className="grid grid-cols-3 gap-2 w-48">
+                                <div></div>
+                                <button onClick={() => movePlayer('up')} className="p-2 bg-gray-200 rounded">
+                                    <ArrowUpIcon />
+                                </button>
+                                <div></div>
+                                <button onClick={() => movePlayer('left')} className="p-2 bg-gray-200 rounded">
+                                    <ArrowLeftIcon />
+                                </button>
+                                <button onClick={() => movePlayer('down')} className="p-2 bg-gray-200 rounded">
+                                    <ArrowDownIcon />
+                                </button>
+                                <button onClick={() => movePlayer('right')} className="p-2 bg-gray-200 rounded">
+                                    <ArrowRightIcon />
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<WordAdventure />);
+    </script>
+</body>
+</html>

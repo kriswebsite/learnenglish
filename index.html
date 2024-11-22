@@ -162,27 +162,55 @@
 <body>
 
     <!-- Navigation Bar in index.html -->
-    <nav class="navbar">
-        <div class="navbar-brand">Learn and Play</div>
-        <div class="navbar-toggle" id="navbar-toggle">
-            &#9776; <!-- Hamburger Icon -->
+
+    <!-- Navigation Bar in index.html -->
+<nav class="navbar">
+    <div class="navbar-brand">Learn and Play</div>
+    <div class="navbar-toggle" id="navbar-toggle">
+        &#9776; <!-- Hamburger Icon -->
+    </div>
+    <ul class="navbar-menu" id="navbar-menu">
+        <!-- Replace Lessons and Games with Menu -->
+        <li class="navbar-item">
+            <button class="navbar-link" id="open-pre-intro">Menu</button>
+        </li>
+    </ul>
+</nav>
+
+<!-- Pre-Intro Overlay -->
+<div id="pre-intro" class="pre-intro-overlay">
+    <div class="pre-intro-content">
+        <button id="close-pre-intro" class="close-button">&times;</button>
+        <div class="categories">
+            <!-- Lessons Category -->
+            <div class="category lessons" onclick="window.location.href='intro.html'">
+                <h2>Lessons</h2>
+                <div class="cards">
+                    <img src="images/lion.webp" alt="Lion">
+                    <img src="images/carrot.webp" alt="Carrot">
+                    <img src="images/apple.webp" alt="Apple">
+                    <img src="images/car.webp" alt="Car">
+                    <img src="images/happy.webp" alt="Happy">
+                </div>
+            </div>
+            <!-- Games Category -->
+            <div class="category games" onclick="window.location.href='games.html'">
+                <h2>Games</h2>
+                <div class="category-text">
+                    <p>Explore fun and interactive games!</p>
+                </div>
+            </div>
+            <!-- Quiz Category -->
+            <div class="category quiz" onclick="window.location.href='quiz.html'">
+                <h2>Quiz</h2>
+                <div class="category-text">
+                    <p>Test your knowledge with quizzes!</p>
+                </div>
+            </div>
         </div>
-        <ul class="navbar-menu" id="navbar-menu">
-            <!-- Lessons Link -->
-            <li class="navbar-item">
-                <a href="intro.html" class="navbar-link">Lessons</a>
-            </li>
-            <!-- Games Dropdown -->
-            <li class="navbar-item dropdown">
-                <button class="dropdown-toggle">Games &#9662;</button>
-                <ul class="dropdown-menu">
-                    <li><button class="game-button" onclick="selectGame('game1.html')">Game 1</button></li>
-                    <li><button class="game-button" onclick="selectGame('game2.html')">Game 2</button></li>
-                    <li><button class="game-button" onclick="selectGame('game3.html')">Game 3</button></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
+    </div>
+</div>
+
 
 
     <!-- Main Content Area -->
@@ -789,6 +817,39 @@
             }
         });
     </script>
+
+<script>
+    // Function to open the pre-intro overlay
+    document.getElementById('open-pre-intro').addEventListener('click', function() {
+        document.getElementById('pre-intro').style.display = 'flex';
+    });
+
+    // Function to close the pre-intro overlay
+    document.getElementById('close-pre-intro').addEventListener('click', function() {
+        document.getElementById('pre-intro').style.display = 'none';
+    });
+
+
+    // Optional: Close the overlay when clicking outside of it
+    window.addEventListener('click', function(event) {
+        const preIntro = document.getElementById('pre-intro');
+        const preIntroContent = document.querySelector('.pre-intro-content');
+        if (event.target === preIntro && !preIntroContent.contains(event.target)) {
+            preIntro.style.display = 'none';
+        }
+    });
+</script>
+
+<!-- Lessons Modal -->
+<div id="lessons-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" id="close-lessons-modal">&times;</span>
+        <!-- Content from intro.html will be injected here -->
+        <div id="lessons-content">
+            <!-- Introductory content will appear here -->
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

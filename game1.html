@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentence Builder Game</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React and ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Custom Styles (Optional) -->
+    <!-- If you want to include any custom styles, you can link them here -->
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-xl font-bold">Learn and Play</a>
+                </div>
+                <!-- Hamburger Menu (Mobile) -->
+                <div class="flex lg:hidden">
+                    <button id="navbar-toggle" class="text-gray-300 hover:text-white focus:outline-none focus:text-white">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+                <!-- Menu -->
+                <div class="hidden lg:block">
+                    <ul class="flex space-x-4">
+                        <li><a href="intro.html" class="hover:bg-gray-700 px-3 py-2 rounded-md">Lessons</a></li>
+                        <li class="relative group">
+                            <button class="flex items-center hover:bg-gray-700 px-3 py-2 rounded-md">
+                                Games
+                                <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <!-- Dropdown Menu -->
+                            <ul class="absolute left-0 mt-2 w-40 bg-gray-700 rounded-md shadow-lg hidden group-hover:block">
+                                <li><a href="game1.html" class="block px-4 py-2 hover:bg-gray-600">Game 1</a></li>
+                                <li><a href="game2.html" class="block px-4 py-2 hover:bg-gray-600">Game 2</a></li>
+                                <li><a href="game3.html" class="block px-4 py-2 hover:bg-gray-600">Game 3</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="navbar-menu" class="lg:hidden hidden bg-gray-800">
+            <ul class="px-2 pt-2 pb-3 space-y-1">
+                <li><a href="intro.html" class="block px-3 py-2 rounded-md hover:bg-gray-700">Lessons</a></li>
+                <li class="relative">
+                    <button class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 flex items-center justify-between">
+                        Games
+                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <ul class="mt-1 space-y-1 pl-4">
+                        <li><a href="game1.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 1</a></li>
+                        <li><a href="game2.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 2</a></li>
+                        <li><a href="game3.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 3</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Game Container -->
+    <div id="root" class="p-4 sm:p-8"></div>
+
+    <!-- JavaScript for Navbar Toggle -->
+    <script>
+        /**
+         * Function to toggle the mobile navbar menu.
+         */
+        function toggleNavbarMenu() {
+            const navbarMenu = document.getElementById('navbar-menu');
+            navbarMenu.classList.toggle('hidden');
+        }
+
+        /**
+         * Event listener for the navbar toggle button.
+         */
+        document.getElementById('navbar-toggle').addEventListener('click', toggleNavbarMenu);
+    </script>
+
+    <!-- Game Script -->
+    <script type="text/babel">
+        // Icon components
+        const Star = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+        );
+
+        const RefreshCw = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 2v6h-6M3 12a9 9 0 0 1 15-6.7L21 8M3 22v-6h6M21 12a9 9 0 0 1-15 6.7L3 16"/>
+            </svg>
+        );
+
+        // Main Game Component
+        const SentenceBuilder = () => {
+            const [score, setScore] = React.useState(0);
+            const [level, setLevel] = React.useState(1);
+            const [words, setWords] = React.useState([]);
+            const [sentence, setSentence] = React.useState([]);
+            const [message, setMessage] = React.useState('');
+            const [draggedWord, setDraggedWord] = React.useState(null);
+            const [isCorrect, setIsCorrect] = React.useState(false);
+
+            const sentences = [
+                {
+                    words: ['The', 'cat', 'drinks', 'milk'],
+                    correct: 'The cat drinks milk'
+                },
+                {
+                    words: ['I', 'love', 'to', 'read', 'books'],
+                    correct: 'I love to read books'
+                },
+                {
+                    words: ['She', 'plays', 'in', 'the', 'park'],
+                    correct: 'She plays in the park'
+                }
+            ];
+
+            React.useEffect(() => {
+                loadNewSentence();
+            }, [level]);
+
+            const loadNewSentence = () => {
+                const currentSentence = sentences[(level - 1) % sentences.length];
+                setWords(shuffleArray([...currentSentence.words]));
+                setSentence([]);
+                setIsCorrect(false);
+                setMessage('');
+            };
+
+            const shuffleArray = (array) => {
+                return array.sort(() => Math.random() - 0.5);
+            };
+
+            const handleDragStart = (e, word, index) => {
+                setDraggedWord({ word, index });
+                e.target.style.opacity = '0.4';
+            };
+
+            const handleDragEnd = (e) => {
+                e.target.style.opacity = '1';
+            };
+
+            const handleDragOver = (e) => {
+                e.preventDefault();
+            };
+
+            const handleDrop = (e, dropIndex) => {
+                e.preventDefault();
+                if (draggedWord === null) return;
+
+                const newSentence = [...sentence];
+                newSentence.splice(dropIndex, 0, draggedWord.word);
+                setSentence(newSentence);
+
+                const newWords = words.filter((_, index) => index !== draggedWord.index);
+                setWords(newWords);
+                setDraggedWord(null);
+
+                if (newWords.length === 0) {
+                    checkSentence(newSentence);
+                }
+            };
+
+            const checkSentence = (completedSentence) => {
+                const currentSentence = sentences[(level - 1) % sentences.length];
+                const isCorrectSentence = completedSentence.join(' ') === currentSentence.correct;
+
+                if (isCorrectSentence) {
+                    setScore(score + 10);
+                    setMessage('Perfect! 🌟');
+                    setIsCorrect(true);
+                    setTimeout(() => {
+                        setLevel(level + 1);
+                    }, 1500);
+                } else {
+                    setMessage('Try again! 🤔');
+                    setIsCorrect(false);
+                    setTimeout(() => {
+                        loadNewSentence();
+                    }, 1500);
+                }
+            };
+
+            return (
+                <div className="min-h-screen bg-gray-100 p-4 sm:p-8">
+                    <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+                        <div className="p-6 sm:p-8">
+                            {/* Header */}
+                            <div className="text-center space-y-4 mb-8">
+                                <h2 className="text-3xl font-bold text-gray-800">Sentence Builder</h2>
+                                <div className="flex items-center justify-center gap-6">
+                                    <div className="flex items-center gap-2 bg-yellow-100 px-4 py-2 rounded-lg">
+                                        <Star />
+                                        <span className="text-xl font-semibold text-gray-700">Score: {score}</span>
+                                    </div>
+                                    <div className="bg-blue-100 px-4 py-2 rounded-lg">
+                                        <span className="text-xl font-semibold text-gray-700">Level: {level}</span>
+                                    </div>
+                                </div>
+                                {message && (
+                                    <div className={`text-lg font-medium ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
+                                        {message}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Sentence Building Area */}
+                            <div
+                                className="min-h-32 p-6 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-xl mb-8 flex flex-wrap gap-3 items-start border border-gray-300"
+                                onDragOver={handleDragOver}
+                                onDrop={(e) => handleDrop(e, sentence.length)}
+                            >
+                                {sentence.map((word, index) => (
+                                    <div
+                                        key={index}
+                                        className="bg-white px-4 py-2 rounded-lg shadow-md text-lg font-medium text-gray-700 border border-gray-300"
+                                    >
+                                        {word}
+                                    </div>
+                                ))}
+                                {sentence.length === 0 && (
+                                    <div className="text-gray-400 text-center w-full text-lg italic">
+                                        Drag words here to build your sentence!
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Word Bank */}
+                            <div className="flex flex-wrap gap-3 justify-center mb-8">
+                                {words.map((word, index) => (
+                                    <div
+                                        key={index}
+                                        draggable
+                                        onDragStart={(e) => handleDragStart(e, word, index)}
+                                        onDragEnd={handleDragEnd}
+                                        className="bg-blue-600 text-white px-4 py-2 rounded-lg cursor-move shadow-md hover:bg-blue-700 transition-all text-lg font-medium border border-blue-600"
+                                    >
+                                        {word}
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Reset Button */}
+                            <button
+                                onClick={loadNewSentence}
+                                className="mx-auto block bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium px-6 py-3 rounded-lg transition-colors flex items-center gap-2 border border-gray-300"
+                            >
+                                <RefreshCw />
+                                Reset Sentence
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<SentenceBuilder />);
+    </script>
+</body>
+</html>
