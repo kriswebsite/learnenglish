@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Matching Game</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React and ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Custom Styles (Optional) -->
+    <!-- If you want to include any custom styles, you can link them here -->
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-xl font-bold">Learn and Play</a>
+                </div>
+                <!-- Hamburger Menu (Mobile) -->
+                <div class="flex lg:hidden">
+                    <button id="navbar-toggle" class="text-gray-300 hover:text-white focus:outline-none focus:text-white">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+                <!-- Menu -->
+                <div class="hidden lg:block">
+                    <ul class="flex space-x-4">
+                        <li><a href="intro.html" class="hover:bg-gray-700 px-3 py-2 rounded-md">Lessons</a></li>
+                        <li class="relative group">
+                            <button class="flex items-center hover:bg-gray-700 px-3 py-2 rounded-md">
+                                Games
+                                <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <!-- Dropdown Menu -->
+                            <ul class="absolute left-0 mt-2 w-40 bg-gray-700 rounded-md shadow-lg hidden group-hover:block">
+                                <li><a href="game1.html" class="block px-4 py-2 hover:bg-gray-600">Game 1</a></li>
+                                <li><a href="game2.html" class="block px-4 py-2 hover:bg-gray-600">Game 2</a></li>
+                                <li><a href="game3.html" class="block px-4 py-2 hover:bg-gray-600">Game 3</a></li>
+                                <!-- Add more games here -->
+                                <li><a href="game8.html" class="block px-4 py-2 hover:bg-gray-600">Game 8</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="navbar-menu" class="lg:hidden hidden bg-gray-800">
+            <ul class="px-2 pt-2 pb-3 space-y-1">
+                <li><a href="intro.html" class="block px-3 py-2 rounded-md hover:bg-gray-700">Lessons</a></li>
+                <li class="relative">
+                    <button class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 flex items-center justify-between">
+                        Games
+                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <ul class="mt-1 space-y-1 pl-4">
+                        <li><a href="game1.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 1</a></li>
+                        <li><a href="game2.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 2</a></li>
+                        <li><a href="game3.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 3</a></li>
+                        <!-- Add more games here -->
+                        <li><a href="game8.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 8</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Back to Games Button -->
+    <div class="max-w-4xl mx-auto px-4 pt-4">
+        <a href="games.html" class="inline-flex items-center text-blue-600 hover:text-blue-800">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Games
+        </a>
+    </div>
+
+    <!-- Main Game Container -->
+    <div id="root" class="p-4 sm:p-8"></div>
+
+    <!-- JavaScript for Navbar Toggle -->
+    <script>
+        /**
+         * Function to toggle the mobile navbar menu.
+         */
+        function toggleNavbarMenu() {
+            const navbarMenu = document.getElementById('navbar-menu');
+            navbarMenu.classList.toggle('hidden');
+        }
+
+        /**
+         * Event listener for the navbar toggle button.
+         */
+        document.getElementById('navbar-toggle').addEventListener('click', toggleNavbarMenu);
+    </script>
+
+    <!-- Game8 Script -->
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const WordMatchingGame = () => {
+            const gameWords = [
+                { word: 'cat', imageUrl: '/images/cat.webp', category: 'animals' },
+                { word: 'dog', imageUrl: '/images/dog.webp', category: 'animals' },
+                { word: 'bird', imageUrl: '/images/bird.webp', category: 'animals' },
+                { word: 'fish', imageUrl: '/images/fish.webp', category: 'animals' },
+                { word: 'elephant', imageUrl: '/images/elephant.webp', category: 'animals' },
+                { word: 'monkey', imageUrl: '/images/monkey.webp', category: 'animals' },
+                { word: 'panda', imageUrl: '/images/panda.webp', category: 'animals' },
+                { word: 'lion', imageUrl: '/images/lion.webp', category: 'animals' },
+                { word: 'apple', imageUrl: '/images/apple.webp', category: 'food' },
+                { word: 'banana', imageUrl: '/images/banana.webp', category: 'food' },
+                { word: 'orange', imageUrl: '/images/orange.webp', category: 'food' },
+                { word: 'pear', imageUrl: '/images/pear.webp', category: 'food' },
+                { word: 'grape', imageUrl: '/images/grape.webp', category: 'food' },
+                { word: 'chair', imageUrl: '/images/chair.webp', category: 'furniture' },
+                { word: 'table', imageUrl: '/images/table.webp', category: 'furniture' },
+                { word: 'bed', imageUrl: '/images/bed.webp', category: 'furniture' },
+                { word: 'sofa', imageUrl: '/images/sofa.webp', category: 'furniture' },
+                { word: 'car', imageUrl: '/images/car.webp', category: 'vehicles' },
+                { word: 'train', imageUrl: '/images/train.webp', category: 'vehicles' },
+                { word: 'aeroplane', imageUrl: '/images/aeroplane.webp', category: 'vehicles' }
+            ];
+        
+            const [currentWords, setCurrentWords] = useState({ words: [], images: [] });
+            const [selectedWord, setSelectedWord] = useState(null);
+            const [selectedImage, setSelectedImage] = useState(null);
+            const [score, setScore] = useState(0);
+            const [matches, setMatches] = useState([]);
+            const [isCorrect, setIsCorrect] = useState(null);
+            const [gameLevel, setGameLevel] = useState(1);
+            const [streak, setStreak] = useState(0);
+            const [showSuccess, setShowSuccess] = useState(false);
+        
+            const wordsPerLevel = 4;
+        
+            useEffect(() => {
+                startNewGame();
+            }, [gameLevel]);
+        
+            const startNewGame = () => {
+                const shuffled = [...gameWords].sort(() => Math.random() - 0.5);
+                const levelWords = shuffled.slice(0, wordsPerLevel * gameLevel);
+                const shuffledImages = [...levelWords].sort(() => Math.random() - 0.5);
+                setCurrentWords({ words: levelWords, images: shuffledImages });
+                setMatches([]);
+                setSelectedWord(null);
+                setSelectedImage(null);
+                setIsCorrect(null);
+            };
+        
+            const handleWordClick = (word) => {
+                setSelectedWord(word);
+                if (selectedImage) {
+                    checkMatch(word, selectedImage);
+                }
+            };
+        
+            const handleImageClick = (image) => {
+                setSelectedImage(image);
+                if (selectedWord) {
+                    checkMatch(selectedWord, image);
+                }
+            };
+        
+            const checkMatch = (word, image) => {
+                if (word && image) {
+                    const isMatch = word.word === image.word;
+                    
+                    if (isMatch) {
+                        const newScore = score + (10 * gameLevel);
+                        setScore(newScore);
+                        setMatches([...matches, word.word]);
+                        setStreak(streak + 1);
+                        setIsCorrect(true);
+                        
+                        // Check if level is complete
+                        if (matches.length + 1 === currentWords.words.length) {
+                            setShowSuccess(true);
+                            setTimeout(() => {
+                                setGameLevel(gameLevel + 1);
+                                setShowSuccess(false);
+                            }, 2000);
+                        }
+                    } else {
+                        setIsCorrect(false);
+                        setStreak(0);
+                    }
+        
+                    setTimeout(() => {
+                        setSelectedWord(null);
+                        setSelectedImage(null);
+                        setIsCorrect(null);
+                    }, 1000);
+                }
+            };
+        
+            const speakWord = (word) => {
+                const utterance = new SpeechSynthesisUtterance(word);
+                window.speechSynthesis.speak(utterance);
+            };
+        
+            return (
+                <div className="p-6 max-w-4xl mx-auto">
+                    <div className="text-center mb-6">
+                        <h2 className="text-2xl font-bold mb-2">Word Matching Game</h2>
+                        <div className="flex items-center justify-center gap-4 mb-4">
+                            <div className="flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                                    <polygon points="12 17.27 18.18 21 15.89 13.47 21.64 8.63 13.81 8.13 12 1 10.19 8.13 2.36 8.63 8.11 13.47 5.82 21 12 17.27" />
+                                </svg>
+                                <span className="text-xl">Score: {score}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="text-xl">Level: {gameLevel}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="text-xl">Streak: {streak}</span>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div className="grid grid-cols-2 gap-8">
+                        <div className="space-y-4">
+                            {currentWords.words?.map((word, index) => (
+                                <div key={index} className="flex gap-2">
+                                    <button
+                                        onClick={() => handleWordClick(word)}
+                                        className={`w-full text-lg px-4 py-2 rounded-md border ${
+                                            selectedWord === word ? 'bg-blue-500 text-white' : 'bg-white text-gray-800'
+                                        } ${matches.includes(word.word) ? 'bg-green-500 text-white' : ''}`}
+                                        disabled={matches.includes(word.word)}
+                                    >
+                                        {word.word}
+                                    </button>
+                                    <button
+                                        onClick={() => speakWord(word.word)}
+                                        className="flex-shrink-0 px-2 py-2 border rounded-md bg-gray-200 hover:bg-gray-300"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5l7 7-7 7" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+        
+                        <div className="grid grid-cols-2 gap-4">
+                            {currentWords.images?.map((word, index) => (
+                                <div
+                                    key={index}
+                                    onClick={() => handleImageClick(word)}
+                                    className={`cursor-pointer rounded-lg overflow-hidden border-4 ${
+                                        selectedImage === word ? 'border-blue-500' : 'border-transparent'
+                                    } ${matches.includes(word.word) ? 'border-green-500' : ''}`}
+                                >
+                                    <img
+                                        src={word.imageUrl}
+                                        alt={word.word}
+                                        className={`w-full h-full object-cover ${
+                                            matches.includes(word.word) ? 'opacity-50' : ''
+                                        }`}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+        
+                    {isCorrect !== null && (
+                        <div 
+                            className={`text-center mt-4 text-lg font-bold ${
+                                isCorrect ? 'text-green-500' : 'text-red-500'
+                            }`}
+                        >
+                            {isCorrect ? '🎉 Correct! +' + (10 * gameLevel) + ' points' : '❌ Try again!'}
+                        </div>
+                    )}
+        
+                    {showSuccess && (
+                        <div className="text-center mt-4 text-2xl font-bold text-green-500">
+                            🎯 Level {gameLevel} Complete! Moving to next level...
+                        </div>
+                    )}
+        
+                    <button 
+                        onClick={startNewGame} 
+                        className="mt-6 mx-auto block px-4 py-2 border border-gray-400 rounded-md hover:bg-gray-200 flex items-center"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1116 12H4" />
+                        </svg>
+                        Shuffle Words
+                    </button>
+                </div>
+            );
+        };
+        
+        // Render the WordMatchingGame component
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<WordMatchingGame />);
+    </script>
+</body>
+</html>

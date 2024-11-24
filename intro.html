@@ -5,10 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introduction - Learn and Play</title>
     <link rel="stylesheet" href="introstyles.css">
+        <link rel="stylesheet" href="styles.css">
+
+
+
+
+
     <style>
         /* =====================================================
            Intro Page Specific Styles
            ===================================================== */
+
+
 
         .intro-container {
             display: flex;
@@ -126,58 +134,116 @@
                 font-size: 1.5em;
             }
         }
+
+        .navbar {
+    background: var(--secondary); /* Use the color scheme from games.html */
+    color: white; /* Text color */
+    padding: 10px 20px; /* Maintain padding from index.html */
+    display: flex; /* Ensure flex layout remains the same */
+    align-items: center; /* Align items vertically */
+    justify-content: space-between; /* Maintain space between brand and menu */
+    position: sticky; /* Keeps the navbar sticky */
+    top: 0; /* Ensures it stays at the top */
+    z-index: 1000; /* Keeps it above other content */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect from games.html */
+}
+
+.navbar-brand {
+    font-size: 1.5rem; /* Font size from games.html */
+    font-weight: bold;
+}
+
+.navbar-menu {
+    list-style: none; /* Remove bullets */
+    display: flex; /* Ensure items are in a row */
+    gap: 20px; /* Maintain spacing from index.html */
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-item {
+    position: relative; /* Retain dropdown positioning */
+}
+
+.navbar-link {
+    color: white; /* Use white text color */
+    text-decoration: none; /* Remove underlines */
+    padding: 0.5rem 1rem; /* Add padding for a button-like feel */
+    border-radius: 20px; /* Rounded corners */
+    transition: background 0.3s; /* Smooth hover effect */
+}
+
+.navbar-link:hover {
+    background: rgba(255, 255, 255, 0.2); /* Hover effect from games.html */
+}
+
+/* Mobile Toggle Styles */
+.navbar-toggle {
+    display: none; /* Hidden on larger screens */
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .navbar-menu {
+        display: none; /* Hide menu on mobile by default */
+        flex-direction: column; /* Stack menu items vertically */
+        background-color: var(--secondary); /* Match the navbar background */
+        position: absolute;
+        top: 60px; /* Position below the navbar */
+        left: 0;
+        width: 100%; /* Full-width dropdown */
+        padding: 10px 0;
+    }
+
+    .navbar-menu.active {
+        display: flex; /* Show the menu when toggled */
+    }
+
+    .navbar-item {
+        width: 100%; /* Ensure items take full width */
+    }
+
+    .navbar-toggle {
+        display: block; /* Show toggle button on mobile */
+    }
+}
+
     </style>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="navbar-brand">Learn and Play</div>
-        <div class="navbar-toggle" id="navbar-toggle">
-            &#9776; <!-- Hamburger Icon -->
-        </div>
-        <ul class="navbar-menu" id="navbar-menu">
-            <!-- Lessons Dropdown -->
-            <li class="navbar-item dropdown">
-                <button class="dropdown-toggle">Lessons &#9662;</button>
-                <ul class="dropdown-menu">
-                    <!-- Add all lesson buttons as in index.html -->
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#animals'">Animals</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#vegetables'">Vegetables</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#fruits'">Fruits</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#colors'">Colors</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#numbers'">Numbers</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#shapes'">Shapes</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#alphabet'">Alphabet</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#emotions'">Emotions</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#vehicles'">Vehicles</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#food1'">Food 1</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#food2'">Food 2</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#school_items1'">School Items 1</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#school_items2'">School Items 2</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#clothes1'">Clothes 1</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#clothes2'">Clothes 2</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#kitchen_items1'">Kitchen Items 1</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#kitchen_items2'">Kitchen Items 2</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#home_furniture1'">Home Furniture 1</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#home_furniture2'">Home Furniture 2</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#toys1'">Toys 1</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#toys2'">Toys 2</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#nature1'">Nature 1</button></li>
-                    <li><button class="lesson-button" onclick="window.location.href='index.html#nature2'">Nature 2</button></li>
-                </ul>
-            </li>
-            <!-- Games Dropdown -->
-            <li class="navbar-item dropdown">
-                <button class="dropdown-toggle">Games &#9662;</button>
-                <ul class="dropdown-menu">
-                    <li><button class="game-button" onclick="window.location.href='index.html#game1'">Game 1</button></li>
-                    <li><button class="game-button" onclick="window.location.href='index.html#game2'">Game 2</button></li>
-                    <li><button class="game-button" onclick="window.location.href='index.html#game3'">Game 3</button></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
+   <!-- Navigation Bar in index.html -->
+<nav class="navbar">
+    <div class="navbar-brand">Learn and Play</div>
+    <div class="navbar-toggle" id="navbar-toggle">
+        &#9776; <!-- Hamburger Icon -->
+    </div>
+    <ul class="navbar-menu" id="navbar-menu">
+        <li class="navbar-item">
+            <a href="pre-intro.html" class="navbar-link">Home</a>
+        </li>
+        <li class="navbar-item">
+            <a href="index.html" class="navbar-link">Lessons</a>
+        </li>
+        <li class="navbar-item">
+            <a href="games.html" class="navbar-link">Games</a>
+        </li>
+        <li class="navbar-item">
+            <a href="quiz.html" class="navbar-link">Quiz</a>
+        </li>
+    </ul>
+</nav>
+
+    <div class="back-to-lessons-container" style="text-align: left; margin: 0 0 20px 20px;">
+    <a href="pre-intro.html" class="back-to-lessons">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Back to Menu
+    </a>
+</div>
+
 
     <!-- Main Content Area -->
     <div class="main-content">
@@ -190,6 +256,18 @@
                     <img src="images/elephant.webp" alt="Elephant">
                     <img src="images/giraffe.webp" alt="Giraffe">
                     <img src="images/zebra.webp" alt="Zebra">
+                </div>
+            </section>
+
+
+            <!-- Category 2: Animals 2 -->
+            <section class="category-section">
+                <h2 class="category-name">Animals 2</h2>
+                <div class="image-category-group" onclick="window.location.href='index.html#animals2'">
+                    <img src="images/kangaroo.webp" alt="Lion">
+                    <img src="images/dolphin.webp" alt="Elephant">
+                    <img src="images/parrot.webp" alt="Giraffe">
+                    <img src="images/mouse.webp" alt="Zebra">
                 </div>
             </section>
 

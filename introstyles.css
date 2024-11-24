@@ -21,136 +21,84 @@ body {
    Navigation Bar Styles
    ===================================================== */
 
+* =====================================================
+   Navigation Bar Styles
+   ===================================================== */
 .navbar {
-    width: 100%;
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    padding: 10px 20px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    z-index: 1000;
+    background: var(--secondary); /* Use the color scheme from games.html */
+    color: white; /* Text color */
+    padding: 10px 20px; /* Maintain padding from index.html */
+    display: flex; /* Ensure flex layout remains the same */
+    align-items: center; /* Align items vertically */
+    justify-content: space-between; /* Maintain space between brand and menu */
+    position: sticky; /* Keeps the navbar sticky */
+    top: 0; /* Ensures it stays at the top */
+    z-index: 1000; /* Keeps it above other content */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect from games.html */
 }
 
 .navbar-brand {
-    font-size: 1.5em;
+    font-size: 1.5rem; /* Font size from games.html */
     font-weight: bold;
 }
 
+.navbar-menu {
+    list-style: none; /* Remove bullets */
+    display: flex; /* Ensure items are in a row */
+    gap: 20px; /* Maintain spacing from index.html */
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-item {
+    position: relative; /* Retain dropdown positioning */
+}
+
+.navbar-link {
+    color: white; /* Use white text color */
+    text-decoration: none; /* Remove underlines */
+    padding: 0.5rem 1rem; /* Add padding for a button-like feel */
+    border-radius: 20px; /* Rounded corners */
+    transition: background 0.3s; /* Smooth hover effect */
+}
+
+.navbar-link:hover {
+    background: rgba(255, 255, 255, 0.2); /* Hover effect from games.html */
+}
+
+/* Mobile Toggle Styles */
 .navbar-toggle {
-    display: none;
+    display: none; /* Hidden on larger screens */
     font-size: 1.5em;
     cursor: pointer;
 }
 
-.navbar-menu {
-    list-style: none;
-    display: flex;
-    align-items: center;
-}
-
-.navbar-item {
-    position: relative;
-}
-
-.navbar-item + .navbar-item {
-    margin-left: 20px;
-}
-
-.dropdown-toggle {
-    background: none;
-    border: none;
-    color: #ecf0f1;
-    font-size: 1em;
-    cursor: pointer;
-    padding: 10px;
-    transition: background-color 0.3s;
-}
-
-.dropdown-toggle:hover {
-    background-color: #1abc9c;
-    border-radius: 5px;
-}
-
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #34495e;
-    min-width: 200px;
-    list-style: none;
-    padding: 10px 0;
-    border-radius: 5px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-}
-
-.dropdown-menu li {
-    width: 100%;
-}
-
-.dropdown-menu .lesson-button,
-.dropdown-menu .game-button {
-    width: 100%;
-    background: none;
-    border: none;
-    color: #ecf0f1;
-    padding: 10px 20px;
-    text-align: left;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s;
-}
-
-.dropdown-menu .lesson-button:hover,
-.dropdown-menu .game-button:hover {
-    background-color: #1abc9c;
-}
-
-.navbar-item.dropdown:hover .dropdown-menu {
-    display: block;
-}
-
-/* Responsive Navbar */
 @media (max-width: 768px) {
     .navbar-menu {
+        display: none; /* Hide menu on mobile by default */
+        flex-direction: column; /* Stack menu items vertically */
+        background-color: var(--secondary); /* Match the navbar background */
         position: absolute;
-        top: 60px;
+        top: 60px; /* Position below the navbar */
         left: 0;
-        right: 0;
-        background-color: #2c3e50;
-        flex-direction: column;
-        align-items: flex-start;
-        display: none;
+        width: 100%; /* Full-width dropdown */
         padding: 10px 0;
     }
 
     .navbar-menu.active {
-        display: flex;
+        display: flex; /* Show the menu when toggled */
     }
 
     .navbar-item {
-        width: 100%;
-        margin-left: 0;
-    }
-
-    .dropdown-menu {
-        position: static;
-        box-shadow: none;
-        border-radius: 0;
+        width: 100%; /* Ensure items take full width */
     }
 
     .navbar-toggle {
-        display: block;
-    }
-
-    .dropdown-menu .lesson-button,
-    .dropdown-menu .game-button {
-        padding: 10px 20px;
+        display: block; /* Show toggle button on mobile */
     }
 }
+
+
 
 /* =====================================================
    Main Content Styles
@@ -492,3 +440,5 @@ body {
         font-size: 1.5em;
     }
 }
+
+

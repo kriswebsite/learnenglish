@@ -10,58 +10,96 @@
            General Styles (Assuming styles.css contains necessary styles)
            ===================================================== */
 
+:root {
+    --primary: #4ECDC4;
+    --secondary: #FF6B6B;
+    --accent1: #FFE66D;
+    --accent2: #95E1D3;
+    --accent3: #FF8B94;
+}
         /* Example styles for demonstration purposes */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             margin: 0;
             padding: 0;
         }
+.navbar {
+    background: #FF6B6B; /* Use the color scheme from games.html */
+    color: white; /* Text color */
+    padding: 10px 20px; /* Maintain padding from index.html */
+    display: flex; /* Ensure flex layout remains the same */
+    align-items: center; /* Align items vertically */
+    justify-content: space-between; /* Maintain space between brand and menu */
+    position: sticky; /* Keeps the navbar sticky */
+    top: 0; /* Ensures it stays at the top */
+    z-index: 1000; /* Keeps it above other content */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect from games.html */
+}
 
-        .navbar {
-            background-color: #34495e;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+.navbar-brand {
+    font-size: 1.5rem; /* Font size from games.html */
+    font-weight: bold;
+}
 
-        .navbar-brand {
-            font-size: 1.5em;
-            font-weight: bold;
-        }
+.navbar-menu {
+    list-style: none; /* Remove bullets */
+    display: flex; /* Ensure items are in a row */
+    gap: 20px; /* Maintain spacing from index.html */
+    margin: 0;
+    padding: 0;
+}
 
-        .navbar-toggle {
-            display: none;
-            font-size: 1.5em;
-            cursor: pointer;
-        }
+.navbar-item {
+    position: relative; /* Retain dropdown positioning */
+}
 
-        .navbar-menu {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-            margin: 0;
-            padding: 0;
-        }
+.navbar-link {
+    color: white; /* Use white text color */
+    text-decoration: none; /* Remove underlines */
+    padding: 0.5rem 1rem; /* Add padding for a button-like feel */
+    border-radius: 20px; /* Rounded corners */
+    transition: background 0.3s; /* Smooth hover effect */
+}
 
-        .navbar-item {
-            position: relative;
-        }
+.navbar-link:hover {
+    background: rgba(255, 255, 255, 0.2); /* Hover effect from games.html */
+}
 
-        .navbar-link, .dropdown-toggle, .lesson-button, .game-button {
-            color: white;
-            text-decoration: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-        }
+/* Mobile Toggle Styles */
+.navbar-toggle {
+    display: none; /* Hidden on larger screens */
+    font-size: 1.5em;
+    cursor: pointer;
+}
 
-        .navbar-link:hover, .dropdown-toggle:hover, .lesson-button:hover, .game-button:hover {
+@media (max-width: 768px) {
+    .navbar-menu {
+        display: none; /* Hide menu on mobile by default */
+        flex-direction: column; /* Stack menu items vertically */
+        background-color: #FF6B6B; /* Match the navbar background */
+        position: absolute;
+        top: 60px; /* Position below the navbar */
+        left: 0;
+        width: 100%; /* Full-width dropdown */
+        padding: 10px 0;
+    }
+
+    .navbar-menu.active {
+        display: flex; /* Show the menu when toggled */
+    }
+
+    .navbar-item {
+        width: 100%; /* Ensure items take full width */
+    }
+
+    .navbar-toggle {
+        display: block; /* Show toggle button on mobile */
+    }
+}
+
+
+
+        .dropdown-toggle:hover, .lesson-button:hover, .game-button:hover {
             text-decoration: underline;
         }
 
@@ -156,12 +194,128 @@
                 position: static;
                 box-shadow: none;
             }
+
+            /* Adjust pre-intro overlay for mobile */
+            .pre-intro-overlay {
+                display: none; /* Hidden by default */
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.8);
+                justify-content: center;
+                align-items: center;
+                z-index: 2000;
+            }
+
+            .pre-intro-content {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                width: 90%;
+                max-width: 500px;
+                position: relative;
+            }
+
+            .close-button {
+                position: absolute;
+                top: 10px;
+                right: 15px;
+                background: none;
+                border: none;
+                font-size: 2em;
+                color: #333;
+                cursor: pointer;
+            }
+
+            .categories {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .category {
+                cursor: pointer;
+            }
+
+            .category h2 {
+                margin-bottom: 10px;
+            }
+
+            .cards, .category-text {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .cards img, .category-text p {
+                cursor: pointer;
+            }
+        }
+
+        /* Pre-Intro Overlay Styles for larger screens (optional) */
+        @media (min-width: 769px) {
+            .pre-intro-overlay {
+                display: none; /* Hidden by default */
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.8);
+                justify-content: center;
+                align-items: center;
+                z-index: 2000;
+            }
+
+            .pre-intro-content {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                width: 50%;
+                max-width: 800px;
+                position: relative;
+            }
+
+            .close-button {
+                position: absolute;
+                top: 10px;
+                right: 15px;
+                background: none;
+                border: none;
+                font-size: 2em;
+                color: #333;
+                cursor: pointer;
+            }
+
+            .categories {
+                display: flex;
+                flex-direction: row;
+                gap: 40px;
+            }
+
+            .category {
+                cursor: pointer;
+            }
+
+            .category h2 {
+                margin-bottom: 10px;
+            }
+
+            .cards, .category-text {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .cards img, .category-text p {
+                cursor: pointer;
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- Navigation Bar in index.html -->
 
     <!-- Navigation Bar in index.html -->
 <nav class="navbar">
@@ -170,45 +324,28 @@
         &#9776; <!-- Hamburger Icon -->
     </div>
     <ul class="navbar-menu" id="navbar-menu">
-        <!-- Replace Lessons and Games with Menu -->
         <li class="navbar-item">
-            <button class="navbar-link" id="open-pre-intro">Menu</button>
+            <a href="pre-intro.html" class="navbar-link">Home</a>
+        </li>
+        <li class="navbar-item">
+            <a href="index.html" class="navbar-link">Lessons</a>
+        </li>
+        <li class="navbar-item">
+            <a href="games.html" class="navbar-link">Games</a>
+        </li>
+        <li class="navbar-item">
+            <a href="quiz.html" class="navbar-link">Quiz</a>
         </li>
     </ul>
 </nav>
 
-<!-- Pre-Intro Overlay -->
-<div id="pre-intro" class="pre-intro-overlay">
-    <div class="pre-intro-content">
-        <button id="close-pre-intro" class="close-button">&times;</button>
-        <div class="categories">
-            <!-- Lessons Category -->
-            <div class="category lessons" onclick="window.location.href='intro.html'">
-                <h2>Lessons</h2>
-                <div class="cards">
-                    <img src="images/lion.webp" alt="Lion">
-                    <img src="images/carrot.webp" alt="Carrot">
-                    <img src="images/apple.webp" alt="Apple">
-                    <img src="images/car.webp" alt="Car">
-                    <img src="images/happy.webp" alt="Happy">
-                </div>
-            </div>
-            <!-- Games Category -->
-            <div class="category games" onclick="window.location.href='games.html'">
-                <h2>Games</h2>
-                <div class="category-text">
-                    <p>Explore fun and interactive games!</p>
-                </div>
-            </div>
-            <!-- Quiz Category -->
-            <div class="category quiz" onclick="window.location.href='quiz.html'">
-                <h2>Quiz</h2>
-                <div class="category-text">
-                    <p>Test your knowledge with quizzes!</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="back-to-lessons-container" style="text-align: left; margin: 0 0 20px 20px;">
+    <a href="intro.html" class="back-to-lessons">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Back to lessons
+    </a>
 </div>
 
 
@@ -223,6 +360,7 @@
                     <h2>Animals</h2>
                     <p class="selected-name" id="selected-name-animals"></p>
                     <div class="images-container">
+                        <!-- Existing Animals -->
                         <img src="images/lion.webp" alt="Lion" class="option" onclick="selectElement('animals', 'Lion')">
                         <img src="images/elephant.webp" alt="Elephant" class="option" onclick="selectElement('animals', 'Elephant')">
                         <img src="images/giraffe.webp" alt="Giraffe" class="option" onclick="selectElement('animals', 'Giraffe')">
@@ -232,6 +370,34 @@
                         <img src="images/cat.webp" alt="Cat" class="option" onclick="selectElement('animals', 'Cat')">
                         <img src="images/dog.webp" alt="Dog" class="option" onclick="selectElement('animals', 'Dog')">
                         <img src="images/fish.webp" alt="Fish" class="option" onclick="selectElement('animals', 'Fish')">
+                        
+                        <!-- New Animals -->
+                        <img src="images/turtle.webp" alt="Turtle" class="option" onclick="selectElement('animals', 'Turtle')">
+                        <img src="images/cow.webp" alt="Cow" class="option" onclick="selectElement('animals', 'Cow')">
+                        <img src="images/dinosaur.webp" alt="Dinosaur" class="option" onclick="selectElement('animals', 'Dinosaur')">
+                        <img src="images/bear.webp" alt="Bear" class="option" onclick="selectElement('animals', 'Bear')">
+                        <img src="images/crocodile.webp" alt="Crocodile" class="option" onclick="selectElement('animals', 'Crocodile')">
+                        <img src="images/donkey.webp" alt="Donkey" class="option" onclick="selectElement('animals', 'Donkey')">
+                    </div>
+                </div>
+
+                <!-- Animals2 Lesson -->
+                <div class="lesson" id="animals2">
+                    <h2>Animals 2</h2>
+                    <p class="selected-name" id="selected-name-animals2"></p>
+                    <div class="images-container">
+                        <img src="images/dolphin.webp" alt="Dolphin" class="option" onclick="selectElement('animals2', 'Dolphin')">
+                        <img src="images/fox.webp" alt="Fox" class="option" onclick="selectElement('animals2', 'Fox')">
+                        <img src="images/hedgehog.webp" alt="Hedgehog" class="option" onclick="selectElement('animals2', 'Hedgehog')">
+                        <img src="images/horse.webp" alt="Horse" class="option" onclick="selectElement('animals2', 'Horse')">
+                        <img src="images/kangaroo.webp" alt="Kangaroo" class="option" onclick="selectElement('animals2', 'Kangaroo')">
+                        <img src="images/mouse.webp" alt="Mouse" class="option" onclick="selectElement('animals2', 'Mouse')">
+                        <img src="images/panda.webp" alt="Panda" class="option" onclick="selectElement('animals2', 'Panda')">
+                        <img src="images/parrot.webp" alt="Parrot" class="option" onclick="selectElement('animals2', 'Parrot')">
+                        <img src="images/pig.webp" alt="Pig" class="option" onclick="selectElement('animals2', 'Pig')">
+                        <img src="images/rabbit.webp" alt="Rabbit" class="option" onclick="selectElement('animals2', 'Rabbit')">
+                        <img src="images/sheep.webp" alt="Sheep" class="option" onclick="selectElement('animals2', 'Sheep')">
+                        <img src="images/snake.webp" alt="Snake" class="option" onclick="selectElement('animals2', 'Snake')">
                     </div>
                 </div>
 
@@ -687,10 +853,10 @@
                 elem.textContent = '';
             });
 
-            // Close the navbar menu on mobile after selection
-            const navbarMenu = document.getElementById('navbar-menu');
-            if (navbarMenu.classList.contains('active')) {
-                toggleNavbarMenu();
+            // Close the pre-intro overlay after selection
+            const preIntro = document.getElementById('pre-intro');
+            if (preIntro.style.display === 'flex') {
+                preIntro.style.display = 'none';
             }
         }
 
@@ -756,23 +922,14 @@
                 elem.textContent = '';
             });
 
-            // Close the navbar menu on mobile after selection
-            const navbarMenu = document.getElementById('navbar-menu');
-            if (navbarMenu.classList.contains('active')) {
-                toggleNavbarMenu();
+            // Close the pre-intro overlay after selection
+            const preIntro = document.getElementById('pre-intro');
+            if (preIntro.style.display === 'flex') {
+                preIntro.style.display = 'none';
             }
         }
 
         /**
-         * Function to toggle the navbar menu on mobile.
-         */
-        function toggleNavbarMenu() {
-            const navbarMenu = document.getElementById('navbar-menu');
-            const navbarToggle = document.getElementById('navbar-toggle');
-            navbarMenu.classList.toggle('active');
-            navbarToggle.classList.toggle('active');
-        }
-
         /**
          * Initialize behavior on page load based on URL hash.
          */
@@ -785,11 +942,42 @@
             }
         }
 
+
+    // Toggle the dropdown menu on click
+    document.addEventListener('DOMContentLoaded', function () {
+        const navbarToggle = document.getElementById('navbar-toggle');
+        const navbarMenu = document.getElementById('navbar-menu');
+
+        // Handle dropdown toggle
+        navbarToggle.addEventListener('click', function () {
+            navbarMenu.classList.toggle('active');
+        });
+
+        // Optional: Close dropdown if clicked outside
+        document.addEventListener('click', function (event) {
+            if (!navbarToggle.contains(event.target) && !navbarMenu.contains(event.target)) {
+                navbarMenu.classList.remove('active');
+            }
+        });
+    });
+
+
+
         /**
          * Initialize default behavior on page load.
          */
         document.addEventListener("DOMContentLoaded", function () {
             initializeLessonFromHash();
+
+            // Attach event listener to navbar-toggle to directly open pre-intro on mobile
+            document.getElementById('navbar-toggle').addEventListener('click', function() {
+                document.getElementById('pre-intro').style.display = 'flex';
+            });
+
+            // Attach event listener to close button
+            document.getElementById('close-pre-intro').addEventListener('click', function() {
+                document.getElementById('pre-intro').style.display = 'none';
+            });
         });
 
         /**
@@ -798,11 +986,6 @@
         window.addEventListener("hashchange", function () {
             initializeLessonFromHash();
         });
-
-        /**
-         * Event listener for navbar toggle (hamburger icon).
-         */
-        document.getElementById('navbar-toggle').addEventListener('click', toggleNavbarMenu);
 
         /**
          * Close the navbar menu when clicking outside of it (optional).
@@ -816,40 +999,33 @@
                 }
             }
         });
+
+
+                function navigateToIntro() {
+            window.location.href = 'intro.html';
+        }
+
+
+              function navigateToGames() {
+            window.location.href = 'games.html';
+        }
+
     </script>
 
-<script>
-    // Function to open the pre-intro overlay
-    document.getElementById('open-pre-intro').addEventListener('click', function() {
-        document.getElementById('pre-intro').style.display = 'flex';
-    });
+    <script>
+        // Optional: Additional JavaScript if needed
+    </script>
 
-    // Function to close the pre-intro overlay
-    document.getElementById('close-pre-intro').addEventListener('click', function() {
-        document.getElementById('pre-intro').style.display = 'none';
-    });
-
-
-    // Optional: Close the overlay when clicking outside of it
-    window.addEventListener('click', function(event) {
-        const preIntro = document.getElementById('pre-intro');
-        const preIntroContent = document.querySelector('.pre-intro-content');
-        if (event.target === preIntro && !preIntroContent.contains(event.target)) {
-            preIntro.style.display = 'none';
-        }
-    });
-</script>
-
-<!-- Lessons Modal -->
-<div id="lessons-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-button" id="close-lessons-modal">&times;</span>
-        <!-- Content from intro.html will be injected here -->
-        <div id="lessons-content">
-            <!-- Introductory content will appear here -->
+    <!-- Lessons Modal -->
+    <div id="lessons-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-lessons-modal">&times;</span>
+            <!-- Content from intro.html will be injected here -->
+            <div id="lessons-content">
+                <!-- Introductory content will appear here -->
+            </div>
         </div>
     </div>
-</div>
 
 </body>
 </html>

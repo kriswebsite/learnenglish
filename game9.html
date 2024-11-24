@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Ninja Game</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React and ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Custom Styles (Optional) -->
+    <!-- If you want to include any custom styles, you can link them here -->
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-xl font-bold">Learn and Play</a>
+                </div>
+                <!-- Hamburger Menu (Mobile) -->
+                <div class="flex lg:hidden">
+                    <button id="navbar-toggle" class="text-gray-300 hover:text-white focus:outline-none focus:text-white">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+                <!-- Menu -->
+                <div class="hidden lg:block">
+                    <ul class="flex space-x-4">
+                        <li><a href="intro.html" class="hover:bg-gray-700 px-3 py-2 rounded-md">Lessons</a></li>
+                        <li class="relative group">
+                            <button class="flex items-center hover:bg-gray-700 px-3 py-2 rounded-md">
+                                Games
+                                <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <!-- Dropdown Menu -->
+                            <ul class="absolute left-0 mt-2 w-40 bg-gray-700 rounded-md shadow-lg hidden group-hover:block">
+                                <li><a href="game1.html" class="block px-4 py-2 hover:bg-gray-600">Game 1</a></li>
+                                <li><a href="game2.html" class="block px-4 py-2 hover:bg-gray-600">Game 2</a></li>
+                                <li><a href="game3.html" class="block px-4 py-2 hover:bg-gray-600">Game 3</a></li>
+                                <li><a href="game11.html" class="block px-4 py-2 hover:bg-gray-600">Grammar Ninja</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="navbar-menu" class="lg:hidden hidden bg-gray-800">
+            <ul class="px-2 pt-2 pb-3 space-y-1">
+                <li><a href="intro.html" class="block px-3 py-2 rounded-md hover:bg-gray-700">Lessons</a></li>
+                <li class="relative">
+                    <button class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-700 flex items-center justify-between">
+                        Games
+                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <ul class="mt-1 space-y-1 pl-4">
+                        <li><a href="game1.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 1</a></li>
+                        <li><a href="game2.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 2</a></li>
+                        <li><a href="game3.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Game 3</a></li>
+                        <li><a href="game11.html" class="block px-3 py-2 rounded-md hover:bg-gray-600">Grammar Ninja</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Back to Games Button -->
+    <div class="max-w-4xl mx-auto px-4 pt-4">
+        <a href="games.html" class="inline-flex items-center text-blue-600 hover:text-blue-800">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Games
+        </a>
+    </div>
+    
+    <!-- Main Game Container -->
+    <div id="root" class="p-4 sm:p-8"></div>
+
+    <!-- JavaScript for Navbar Toggle -->
+    <script>
+        /**
+         * Function to toggle the mobile navbar menu.
+         */
+        function toggleNavbarMenu() {
+            const navbarMenu = document.getElementById('navbar-menu');
+            navbarMenu.classList.toggle('hidden');
+        }
+
+        /**
+         * Event listener for the navbar toggle button.
+         */
+        document.getElementById('navbar-toggle').addEventListener('click', toggleNavbarMenu);
+    </script>
+
+    <!-- Game Script -->
+    <script type="text/babel">
+        // Icon components
+        const SwordIcon = ({ className }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" className={`w-8 h-8 ${className}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <polyline points="6 8 2 2 8 6"></polyline>
+                <path d="M18.5 21.5 8 11l-3 3L2 7l7 3 3-3 10.5 10.5a1.42 1.42 0 0 1 0 2 1.42 1.42 0 0 1-2 0Z"></path>
+            </svg>
+        );
+
+        // Alert components
+        const Alert = ({ className, children }) => (
+            <div className={`p-4 rounded ${className}`}>
+                {children}
+            </div>
+        );
+
+        const AlertTitle = ({ children }) => (
+            <h3 className="font-semibold">
+                {children}
+            </h3>
+        );
+
+        const GrammarNinja = () => {
+            const [currentLevel, setCurrentLevel] = React.useState(0);
+            const [score, setScore] = React.useState(0);
+            const [showFeedback, setShowFeedback] = React.useState(false);
+            const [isCorrect, setIsCorrect] = React.useState(false);
+            const [answer, setAnswer] = React.useState('');
+            const [gameComplete, setGameComplete] = React.useState(false);
+
+            const sentences = [
+                {
+                    incorrect: "The cat sleep on the bed",
+                    correct: "The cat sleeps on the bed",
+                    error: "Subject-verb agreement"
+                },
+                {
+                    incorrect: "She dont like pizza",
+                    correct: "She doesn't like pizza",
+                    error: "Contraction"
+                },
+                {
+                    incorrect: "They was playing outside",
+                    correct: "They were playing outside",
+                    error: "Subject-verb agreement"
+                },
+                {
+                    incorrect: "He have two sister",
+                    correct: "He has two sisters",
+                    error: "Subject-verb agreement and plural"
+                }
+            ];
+
+            const checkAnswer = () => {
+                const isAnswerCorrect = answer.trim().toLowerCase() === sentences[currentLevel].correct.toLowerCase();
+                setIsCorrect(isAnswerCorrect);
+                setShowFeedback(true);
+
+                if (isAnswerCorrect) {
+                    setScore(score + 10);
+                }
+
+                setTimeout(() => {
+                    setShowFeedback(false);
+                    if (isAnswerCorrect) {
+                        if (currentLevel === sentences.length - 1) {
+                            setGameComplete(true);
+                        } else {
+                            setCurrentLevel(currentLevel + 1);
+                        }
+                    }
+                    setAnswer('');
+                }, 2000);
+            };
+
+            return (
+                <div className="flex flex-col items-center min-h-screen bg-blue-50 p-8">
+                    <div className="w-full max-w-2xl">
+                        {/* Header */}
+                        <div className="flex items-center justify-between mb-8 bg-white p-4 rounded-lg shadow">
+                            <div className="flex items-center gap-2">
+                                <SwordIcon className="text-blue-600" />
+                                <h1 className="text-2xl font-bold text-blue-600">Grammar Ninja</h1>
+                            </div>
+                            <div className="text-lg font-semibold">
+                                Score: {score}
+                            </div>
+                        </div>
+
+                        {/* Game Content */}
+                        {!gameComplete ? (
+                            <div className="bg-white p-6 rounded-lg shadow-lg">
+                                <div className="mb-6">
+                                    <h2 className="text-xl font-semibold mb-2">Level {currentLevel + 1}</h2>
+                                    <p className="text-gray-600 mb-4">Fix the grammar mistake in this sentence:</p>
+                                    <p className="text-lg font-medium mb-4">{sentences[currentLevel].incorrect}</p>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <input
+                                        type="text"
+                                        value={answer}
+                                        onChange={(e) => setAnswer(e.target.value)}
+                                        placeholder="Type the correct sentence..."
+                                        className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    />
+                                    <button
+                                        onClick={checkAnswer}
+                                        className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                                    >
+                                        Check Answer
+                                    </button>
+                                </div>
+
+                                {showFeedback && (
+                                    <div className={`mt-4 p-4 rounded ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+                                        <h3 className="font-semibold">
+                                            {isCorrect ? 
+                                                "Great job, Ninja! 🎉" : 
+                                                `Try again! Hint: Check the ${sentences[currentLevel].error}`
+                                            }
+                                        </h3>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+                                <h2 className="text-2xl font-bold mb-4">Congratulations! 🎉</h2>
+                                <p className="text-lg mb-4">You've completed all levels and earned {score} points!</p>
+                                <button
+                                    onClick={() => {
+                                        setCurrentLevel(0);
+                                        setScore(0);
+                                        setGameComplete(false);
+                                    }}
+                                    className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors"
+                                >
+                                    Play Again
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<GrammarNinja />);
+    </script>
+</body>
+</html>

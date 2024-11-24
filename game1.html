@@ -17,13 +17,8 @@
     
     <!-- Babel for JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-    <!-- Custom Styles (Optional) -->
-    <!-- If you want to include any custom styles, you can link them here -->
-    <!-- <link rel="stylesheet" href="styles.css"> -->
 </head>
 <body class="bg-gray-100">
-
     <!-- Navigation Bar -->
     <nav class="bg-gray-800 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,22 +79,25 @@
         </div>
     </nav>
 
+    <!-- Back Button -->
+    <div class="max-w-3xl mx-auto pt-4 px-4">
+        <a href="games.html" class="inline-flex items-center text-blue-600 hover:text-blue-800">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Games
+        </a>
+    </div>
+
     <!-- Main Game Container -->
     <div id="root" class="p-4 sm:p-8"></div>
 
     <!-- JavaScript for Navbar Toggle -->
     <script>
-        /**
-         * Function to toggle the mobile navbar menu.
-         */
         function toggleNavbarMenu() {
             const navbarMenu = document.getElementById('navbar-menu');
             navbarMenu.classList.toggle('hidden');
         }
-
-        /**
-         * Event listener for the navbar toggle button.
-         */
         document.getElementById('navbar-toggle').addEventListener('click', toggleNavbarMenu);
     </script>
 
@@ -127,20 +125,77 @@
             const [message, setMessage] = React.useState('');
             const [draggedWord, setDraggedWord] = React.useState(null);
             const [isCorrect, setIsCorrect] = React.useState(false);
+            const [touchedWord, setTouchedWord] = React.useState(null);
 
             const sentences = [
-                {
-                    words: ['The', 'cat', 'drinks', 'milk'],
-                    correct: 'The cat drinks milk'
-                },
-                {
-                    words: ['I', 'love', 'to', 'read', 'books'],
-                    correct: 'I love to read books'
-                },
-                {
-                    words: ['She', 'plays', 'in', 'the', 'park'],
-                    correct: 'She plays in the park'
-                }
+                { words: ['The', 'cat', 'drinks', 'milk'], correct: 'The cat drinks milk' },
+                { words: ['I', 'love', 'to', 'read', 'books'], correct: 'I love to read books' },
+                { words: ['She', 'plays', 'in', 'the', 'park'], correct: 'She plays in the park' },
+                { words: ['The', 'sun', 'shines', 'brightly', 'today'], correct: 'The sun shines brightly today' },
+                { words: ['My', 'dog', 'chases', 'the', 'ball'], correct: 'My dog chases the ball' },
+                { words: ['Birds', 'sing', 'in', 'the', 'morning'], correct: 'Birds sing in the morning' },
+                { words: ['We', 'enjoy', 'playing', 'board', 'games'], correct: 'We enjoy playing board games' },
+                { words: ['The', 'children', 'laugh', 'and', 'play'], correct: 'The children laugh and play' },
+                { words: ['He', 'writes', 'beautiful', 'stories', 'daily'], correct: 'He writes beautiful stories daily' },
+                { words: ['They', 'dance', 'under', 'the', 'stars'], correct: 'They dance under the stars' },
+                { words: ['Rain', 'falls', 'softly', 'on', 'flowers'], correct: 'Rain falls softly on flowers' },
+                { words: ['The', 'wind', 'blows', 'through', 'trees'], correct: 'The wind blows through trees' },
+                { words: ['The', 'cake', 'is', 'on', 'the', 'table'], correct: 'The cake is on the table' },
+    { words: ['He', 'reads', 'a', 'funny', 'comic'], correct: 'He reads a funny comic' },
+    { words: ['The', 'baby', 'cries', 'for', 'milk'], correct: 'The baby cries for milk' },
+    { words: ['She', 'paints', 'a', 'pretty', 'picture'], correct: 'She paints a pretty picture' },
+    { words: ['We', 'love', 'eating', 'ice', 'cream'], correct: 'We love eating ice cream' },
+    { words: ['The', 'stars', 'twinkle', 'at', 'night'], correct: 'The stars twinkle at night' },
+    { words: ['John', 'jumps', 'high', 'on', 'the', 'trampoline'], correct: 'John jumps high on the trampoline' },
+    { words: ['The', 'rabbit', 'hops', 'on', 'the', 'grass'], correct: 'The rabbit hops on the grass' },
+    { words: ['My', 'friend', 'plays', 'the', 'guitar'], correct: 'My friend plays the guitar' },
+    { words: ['The', 'fish', 'swims', 'in', 'the', 'pond'], correct: 'The fish swims in the pond' },
+    { words: ['She', 'bakes', 'delicious', 'cookies'], correct: 'She bakes delicious cookies' },
+    { words: ['Tom', 'rides', 'his', 'red', 'bicycle'], correct: 'Tom rides his red bicycle' },
+    { words: ['The', 'teacher', 'writes', 'on', 'the', 'board'], correct: 'The teacher writes on the board' },
+    { words: ['They', 'climb', 'the', 'tall', 'mountain'], correct: 'They climb the tall mountain' },
+    { words: ['The', 'puppy', 'runs', 'in', 'the', 'yard'], correct: 'The puppy runs in the yard' },
+    { words: ['I', 'like', 'to', 'watch', 'cartoons'], correct: 'I like to watch cartoons' },
+    { words: ['The', 'balloon', 'floats', 'in', 'the', 'sky'], correct: 'The balloon floats in the sky' },
+    { words: ['Sarah', 'plants', 'flowers', 'in', 'the', 'garden'], correct: 'Sarah plants flowers in the garden' },
+    { words: ['We', 'go', 'to', 'the', 'zoo', 'on', 'Sunday'], correct: 'We go to the zoo on Sunday' },
+    { words: ['The', 'train', 'stops', 'at', 'the', 'station'], correct: 'The train stops at the station' },
+    { words: ['He', 'drinks', 'a', 'glass', 'of', 'water'], correct: 'He drinks a glass of water' },
+    { words: ['The', 'butterfly', 'lands', 'on', 'a', 'flower'], correct: 'The butterfly lands on a flower' },
+    { words: ['The', 'car', 'parks', 'in', 'the', 'garage'], correct: 'The car parks in the garage' },
+    { words: ['We', 'play', 'soccer', 'in', 'the', 'park'], correct: 'We play soccer in the park' },
+    { words: ['The', 'moon', 'is', 'bright', 'tonight'], correct: 'The moon is bright tonight' },
+    { words: ['The', 'cow', 'gives', 'us', 'fresh', 'milk'], correct: 'The cow gives us fresh milk' },
+    { words: ['The', 'bird', 'builds', 'a', 'nest'], correct: 'The bird builds a nest' },
+    { words: ['Mom', 'cooks', 'a', 'delicious', 'meal'], correct: 'Mom cooks a delicious meal' },
+    { words: ['Dad', 'fixes', 'the', 'broken', 'chair'], correct: 'Dad fixes the broken chair' },
+    { words: ['The', 'clock', 'ticks', 'on', 'the', 'wall'], correct: 'The clock ticks on the wall' },
+    { words: ['We', 'sing', 'a', 'happy', 'song'], correct: 'We sing a happy song' },
+    { words: ['The', 'apple', 'falls', 'from', 'the', 'tree'], correct: 'The apple falls from the tree' },
+    { words: ['The', 'boat', 'sails', 'on', 'the', 'lake'], correct: 'The boat sails on the lake' },
+    { words: ['We', 'jump', 'over', 'the', 'puddle'], correct: 'We jump over the puddle' },
+    { words: ['The', 'kite', 'flies', 'in', 'the', 'sky'], correct: 'The kite flies in the sky' },
+    { words: ['The', 'clock', 'strikes', 'twelve'], correct: 'The clock strikes twelve' },
+    { words: ['My', 'sister', 'likes', 'to', 'draw'], correct: 'My sister likes to draw' },
+    { words: ['The', 'snow', 'falls', 'on', 'the', 'ground'], correct: 'The snow falls on the ground' },
+    { words: ['We', 'see', 'a', 'rainbow', 'after', 'rain'], correct: 'We see a rainbow after rain' },
+    { words: ['The', 'horse', 'runs', 'fast'], correct: 'The horse runs fast' },
+    { words: ['The', 'cat', 'jumps', 'on', 'the', 'sofa'], correct: 'The cat jumps on the sofa' },
+    { words: ['The', 'mouse', 'hides', 'in', 'the', 'hole'], correct: 'The mouse hides in the hole' },
+    { words: ['My', 'brother', 'washes', 'the', 'car'], correct: 'My brother washes the car' },
+    { words: ['The', 'duck', 'quacks', 'at', 'the', 'pond'], correct: 'The duck quacks at the pond' },
+    { words: ['We', 'ride', 'horses', 'on', 'the', 'beach'], correct: 'We ride horses on the beach' },
+    { words: ['The', 'plane', 'flies', 'high', 'in', 'the', 'sky'], correct: 'The plane flies high in the sky' },
+    { words: ['The', 'dog', 'chases', 'its', 'tail'], correct: 'The dog chases its tail' },
+    { words: ['He', 'jumps', 'on', 'the', 'trampoline'], correct: 'He jumps on the trampoline' },
+    { words: ['The', 'baby', 'sleeps', 'in', 'a', 'crib'], correct: 'The baby sleeps in a crib' },
+    { words: ['We', 'paint', 'pictures', 'with', 'colors'], correct: 'We paint pictures with colors' },
+    { words: ['The', 'frog', 'jumps', 'into', 'the', 'pond'], correct: 'The frog jumps into the pond' },
+    { words: ['My', 'mom', 'loves', 'gardening'], correct: 'My mom loves gardening' },
+    { words: ['The', 'fish', 'swims', 'in', 'the', 'water'], correct: 'The fish swims in the water' },
+    { words: ['The', 'sun', 'sets', 'in', 'the', 'west'], correct: 'The sun sets in the west' },
+    { words: ['My', 'dad', 'reads', 'the', 'newspaper'], correct: 'My dad reads the newspaper' },
+    { words: ['We', 'eat', 'pasta', 'for', 'dinner'], correct: 'We eat pasta for dinner' }
             ];
 
             React.useEffect(() => {
@@ -170,6 +225,37 @@
 
             const handleDragOver = (e) => {
                 e.preventDefault();
+            };
+
+            const handleTouchStart = (e, word, index) => {
+                e.preventDefault();
+                setTouchedWord({ word, index });
+                e.target.style.opacity = '0.4';
+            };
+
+            const handleTouchMove = (e) => {
+                e.preventDefault();
+            };
+
+            const handleTouchEnd = (e, dropIndex) => {
+                e.preventDefault();
+                if (touchedWord === null) return;
+
+                const newSentence = [...sentence];
+                newSentence.splice(dropIndex !== undefined ? dropIndex : sentence.length, 0, touchedWord.word);
+                setSentence(newSentence);
+
+                const newWords = words.filter((_, index) => index !== touchedWord.index);
+                setWords(newWords);
+
+                if (e.target) {
+                    e.target.style.opacity = '1';
+                }
+                setTouchedWord(null);
+
+                if (newWords.length === 0) {
+                    checkSentence(newSentence);
+                }
             };
 
             const handleDrop = (e, dropIndex) => {
@@ -237,18 +323,22 @@
                                 className="min-h-32 p-6 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-xl mb-8 flex flex-wrap gap-3 items-start border border-gray-300"
                                 onDragOver={handleDragOver}
                                 onDrop={(e) => handleDrop(e, sentence.length)}
+                                onTouchEnd={(e) => handleTouchEnd(e)}
                             >
-                                {sentence.map((word, index) => (
+                                        {sentence.map((word, index) => (
                                     <div
                                         key={index}
-                                        className="bg-white px-4 py-2 rounded-lg shadow-md text-lg font-medium text-gray-700 border border-gray-300"
+                                        className="bg-white px-4 py-2 rounded-lg shadow-md text-lg font-medium text-gray-700"
+                                        onDragOver={handleDragOver}
+                                        onDrop={(e) => handleDrop(e, index)}
+                                        onTouchEnd={(e) => handleTouchEnd(e, index)}
                                     >
                                         {word}
                                     </div>
                                 ))}
                                 {sentence.length === 0 && (
                                     <div className="text-gray-400 text-center w-full text-lg italic">
-                                        Drag words here to build your sentence!
+                                        Drag or tap words here to build your sentence!
                                     </div>
                                 )}
                             </div>
@@ -261,7 +351,10 @@
                                         draggable
                                         onDragStart={(e) => handleDragStart(e, word, index)}
                                         onDragEnd={handleDragEnd}
-                                        className="bg-blue-600 text-white px-4 py-2 rounded-lg cursor-move shadow-md hover:bg-blue-700 transition-all text-lg font-medium border border-blue-600"
+                                        onTouchStart={(e) => handleTouchStart(e, word, index)}
+                                        onTouchMove={handleTouchMove}
+                                        onTouchEnd={handleTouchEnd}
+                                        className="bg-blue-600 text-white px-4 py-2 rounded-lg cursor-move shadow-md hover:bg-blue-700 active:bg-blue-800 transition-all text-lg font-medium border border-blue-600 select-none"
                                     >
                                         {word}
                                     </div>
