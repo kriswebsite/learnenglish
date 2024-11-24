@@ -277,6 +277,74 @@ body {
     padding: 10px 0;
 }
 
+
+/* Reset and Base Styles */
+/* Existing reset and base styles... */
+
+/* Back to Lessons Link Styles */
+.back-to-lessons-container {
+    text-align: left;
+    margin: 0 0 20px 20px;
+}
+
+.back-to-lessons {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1rem;
+    color: #1d4ed8; /* Tailwind blue-700 */
+    font-weight: 500;
+    margin: 20px 0; /* Adjust spacing above and below */
+    transition: color 0.3s;
+}
+
+.back-to-lessons:hover {
+    color: #2563eb; /* Tailwind blue-800 */
+}
+
+.back-to-lessons svg.back-arrow {
+    margin-right: 8px; /* Space between icon and text */
+    width: 16px; /* Adjust as needed */
+    height: 16px;
+    vertical-align: middle;
+    transition: transform 0.2s;
+}
+
+.back-to-lessons:hover .back-arrow {
+    transform: translateX(-2px); /* Optional hover effect */
+}
+
+/* Responsive Adjustments for the Back Arrow */
+@media (max-width: 768px) {
+    .back-arrow {
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .back-arrow {
+        width: 12px;
+        height: 12px;
+        margin-right: 4px;
+    }
+}
+
+/* Existing styles... */
+
+/* Navigation Bar Styles */
+/* Existing navbar styles... */
+
+/* Main Content Styles */
+/* Existing main content styles... */
+
+/* Lesson Styles */
+/* Existing lesson styles... */
+
+/* Modal Styles */
+/* Existing modal styles... */
+
 .option,
 .color-block,
 .letter-option,
